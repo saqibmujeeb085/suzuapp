@@ -20,7 +20,9 @@ const CarFiles = ({ navigation }) => {
           </IconButton>
         </View>
         <View style={styles.formButton}>
-          <GradientButton onPress={() => navigation.navigate("CarBodyDetails")}>
+          <GradientButton
+            onPress={() => navigation.navigate("InspectionBoard")}
+          >
             Start Inspection
           </GradientButton>
         </View>
