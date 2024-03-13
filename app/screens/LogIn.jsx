@@ -8,7 +8,6 @@ import IconButton from "../components/buttons/IconButton";
 import GradientButton from "../components/buttons/GradientButton";
 import { Dimensions } from "react-native";
 import AppText from "../components/text/Text";
-import Dropdown from "../components/formFields/Dropdown";
 
 const LogIn = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
@@ -32,8 +31,7 @@ const LogIn = ({ navigation }) => {
               <View style={styles.formContainer}>
                 <Text style={styles.pageHeading}>Sign In</Text>
                 <View style={styles.formFieldContainer}>
-                  {/* <AppTextInput placeholder="Name" /> */}
-                  <Dropdown />
+                  <AppTextInput placeholder="Name" />
                   <AppTextInput
                     autoComplete="off"
                     placeholder="Enter Your Password Here"

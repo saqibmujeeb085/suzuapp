@@ -3,7 +3,11 @@ import React from "react";
 import Constants from "expo-constants";
 
 const AppScreen = ({ backgroundColor = "#F1F1F1", children }) => {
-  return <SafeAreaView style={[styles.screenContainer, {backgroundColor}]}>{children}</SafeAreaView>;
+  return (
+    <SafeAreaView style={[styles.screenContainer, { backgroundColor }]}>
+      {children}
+    </SafeAreaView>
+  );
 };
 
 export default AppScreen;

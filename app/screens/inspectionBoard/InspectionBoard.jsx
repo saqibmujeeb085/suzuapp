@@ -2,13 +2,13 @@ import {
   Image,
   ImageBackground,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
 import AppScreen from "../../components/screen/Screen";
 import AppText from "../../components/text/Text";
+import IconButton from "../../components/buttons/IconButton";
 
 const InspectionBoard = () => {
   return (
@@ -86,6 +86,19 @@ const InspectionBoard = () => {
           </View>
         </View>
       </ImageBackground>
+      <View style={styles.InspectionBoardContainer}>
+        <View style={styles.headingAndButton}>
+          <View style={styles.headingWithIcon}>
+            <AppText fontSize={12} color={"#323232"}>
+              Inspection Details
+            </AppText>
+          </View>
+          <IconButton icon={"cancel"} color={"#D70000"} fontSize={12}>
+            Discard
+          </IconButton>
+        </View>
+        <View style={styles.inscpectionCardsBox}></View>
+      </View>
     </AppScreen>
   );
 };
@@ -138,5 +151,14 @@ const styles = StyleSheet.create({
   },
   summaryBox: {
     gap: 2,
+  },
+  headingAndButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  InspectionBoardContainer: {
+    marginTop: 20,
   },
 });
