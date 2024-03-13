@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     marginVertical: 5,
     marginHorizontal: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   inspectionDestailsContainer: {
     flexDirection: "row",

@@ -49,19 +49,6 @@ const Dropdown = () => {
   const [value, setValue] = useState("Dealership");
   return (
     <View style={styles.selectorContainer}>
-      {open && (
-        <View style={styles.dropdownContainer}>
-          {/* <Search /> */}
-          {/* <View style={styles.valuesContainer}>
-
-        <FlatList
-          data={Data}
-          keyExtractor={(Data) => Data.id.toString()}
-          renderItem={({ item }) => <AppText>{item.Branch}</AppText>}
-        />
-      </View> */}
-        </View>
-      )}
       <TouchableOpacity
         style={{ backgroundColor: "white" }}
         onPress={() => setOpen(!open)}
@@ -77,6 +64,20 @@ const Dropdown = () => {
           )}
         </View>
       </TouchableOpacity>
+
+      {open && (
+        <View style={styles.dropdownContainer}>
+          <Search />
+          {/* <View style={styles.valuesContainer}>
+
+        <FlatList
+          data={Data}
+          keyExtractor={(Data) => Data.id.toString()}
+          renderItem={({ item }) => <AppText>{item.Branch}</AppText>}
+        />
+      </View> */}
+        </View>
+      )}
     </View>
   );
 };
@@ -103,14 +104,11 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     position: "absolute",
-    borderRadius: 5,
-    overflow: "hidden",
     elevation: 2,
     height: 200,
     width: "100%",
-    padding: 70,
-    paddingTop: 10,
-    zIndex: 999,
-    // backgroundColor: "red",
+    top: 0,
+    backgroundColor: "red",
+    zIndex: 999999,
   },
 });

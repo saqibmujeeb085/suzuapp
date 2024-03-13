@@ -8,7 +8,9 @@ import InspectionBoardNavigation from "./InspectionBoardNavigation";
 const Stack = createStackNavigator();
 const FeedNavigation = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, presentation: "card" }}
+    >
       <Stack.Screen name="Auth" component={AuthNavigator} />
       <Stack.Screen name="Home" component={BottomTabNavigation} />
       <Stack.Screen

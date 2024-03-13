@@ -41,7 +41,7 @@ const Rating = () => {
 
   const animatedTextProps = useAnimatedProps(() => {
     return {
-      text: `${Math.round(percentage.value)} % 10`,
+      text: `${Math.round(percentage.value)}`,
     };
   });
 
