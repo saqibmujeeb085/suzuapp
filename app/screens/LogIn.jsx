@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import AppScreen from "../components/screen/Screen";
@@ -8,8 +8,15 @@ import IconButton from "../components/buttons/IconButton";
 import GradientButton from "../components/buttons/GradientButton";
 import { Dimensions } from "react-native";
 import AppText from "../components/text/Text";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const LogIn = ({ navigation }) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+  ]);
   const windowHeight = Dimensions.get("window").height;
   return (
     <AppScreen>
@@ -31,7 +38,17 @@ const LogIn = ({ navigation }) => {
               <View style={styles.formContainer}>
                 <Text style={styles.pageHeading}>Sign In</Text>
                 <View style={styles.formFieldContainer}>
-                  <AppTextInput placeholder="Name" />
+                  {/* <AppTextInput placeholder="Name" /> */}
+                  <DropDownPicker
+                    placeholder="Dealership"
+                    searchable
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                  />
                   <AppTextInput
                     autoComplete="off"
                     placeholder="Enter Your Password Here"
