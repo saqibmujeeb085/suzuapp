@@ -3,7 +3,7 @@ import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from "../text/Text";
 
-const InspectionHeader = ({ onPress, children }) => {
+const InspectionHeader = ({ rightBtn = "Skip", onPress, children }) => {
   return (
     <View style={styles.inspectionHeader}>
       <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
@@ -11,7 +11,7 @@ const InspectionHeader = ({ onPress, children }) => {
       </TouchableOpacity>
       <AppText fontSize={12}>{children}</AppText>
       <TouchableOpacity activeOpacity={0.6}>
-        <AppText fontSize={10}>Skip</AppText>
+        <AppText fontSize={10}>{rightBtn}</AppText>
       </TouchableOpacity>
     </View>
   );

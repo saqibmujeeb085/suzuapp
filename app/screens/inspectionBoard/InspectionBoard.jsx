@@ -3,16 +3,41 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import AppScreen from "../../components/screen/Screen";
 import AppText from "../../components/text/Text";
 import IconButton from "../../components/buttons/IconButton";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import GradientButton from "../../components/buttons/GradientButton";
+import ProcessModal from "../../components/modals/ProcessModal";
 
-const InspectionBoard = () => {
+const InspectionBoard = ({ navigation }) => {
+  const inpection = () => {
+    navigation.navigate("SingleInspection");
+  };
+  const [show, setShow] = useState(false);
+  const ShowModal = () => {
+    setShow(!show);
+  };
   return (
     <AppScreen>
+      {show && (
+        <ProcessModal
+          show={show}
+          setShow={setShow}
+          icon
+          heading={"Customer ID: 0KD560PLF"}
+          text={"If you cancel inspection, customer will be removed."}
+          pbtn={"Continue Inspection"}
+          pbtnPress={setShow}
+          sbtnPress={() => navigation.navigate("home")}
+          sbtn={"Save for later"}
+          sbtnColor={"#D20000"}
+        />
+      )}
       <View style={styles.headingContainer}>
         <AppText fontSize={12}>Inspection Board</AppText>
       </View>
@@ -93,11 +118,159 @@ const InspectionBoard = () => {
               Inspection Details
             </AppText>
           </View>
-          <IconButton icon={"cancel"} color={"#D70000"} fontSize={12}>
+          <IconButton
+            onPress={ShowModal}
+            icon={"cancel"}
+            color={"#D70000"}
+            fontSize={12}
+          >
             Discard
           </IconButton>
         </View>
-        <View style={styles.inscpectionCardsBox}></View>
+        <View style={styles.inscpectionCardsBox}>
+          <TouchableWithoutFeedback onPress={inpection}>
+            <View style={styles.inscpectionCard}>
+              <View style={styles.inpsectionContent}>
+                <MaterialCommunityIcons
+                  name="steering"
+                  color={"#1d1d1d"}
+                  size={20}
+                />
+                <View style={styles.inpectionContentText}>
+                  <AppText color={"#1d1d1d"} fontSize={10}>
+                    Test drive
+                  </AppText>
+                  <AppText color={"#BBBBBB"} fontSize={8}>
+                    Click to Edit
+                  </AppText>
+                </View>
+              </View>
+              <View style={styles.inpsectionRating}>
+                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
+                  Overall Rating
+                </AppText>
+                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
+                  0.0/10
+                </AppText>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+          {/* ////////////////////////////////////////////// */}
+          <TouchableWithoutFeedback onPress={inpection}>
+            <View style={styles.inscpectionCard}>
+              <View style={styles.inpsectionContent}>
+                <MaterialCommunityIcons
+                  name="car"
+                  color={"#1d1d1d"}
+                  size={20}
+                />
+                <View style={styles.inpectionContentText}>
+                  <AppText color={"#1d1d1d"} fontSize={10}>
+                    Exterior
+                  </AppText>
+                  <AppText color={"#BBBBBB"} fontSize={8}>
+                    Click to Edit
+                  </AppText>
+                </View>
+              </View>
+              <View style={styles.inpsectionRating}>
+                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
+                  Overall Rating
+                </AppText>
+                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
+                  0.0/10
+                </AppText>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+          {/* ////////////////////////////////////////////// */}
+          <TouchableWithoutFeedback onPress={inpection}>
+            <View style={styles.inscpectionCard}>
+              <View style={styles.inpsectionContent}>
+                <MaterialCommunityIcons
+                  name="car-child-seat"
+                  color={"#1d1d1d"}
+                  size={20}
+                />
+                <View style={styles.inpectionContentText}>
+                  <AppText color={"#1d1d1d"} fontSize={10}>
+                    Interior
+                  </AppText>
+                  <AppText color={"#BBBBBB"} fontSize={8}>
+                    Click to Edit
+                  </AppText>
+                </View>
+              </View>
+              <View style={styles.inpsectionRating}>
+                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
+                  Overall Rating
+                </AppText>
+                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
+                  0.0/10
+                </AppText>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+          {/* ////////////////////////////////////////////// */}
+          <TouchableWithoutFeedback onPress={inpection}>
+            <View style={styles.inscpectionCard}>
+              <View style={styles.inpsectionContent}>
+                <MaterialCommunityIcons
+                  name="car-clutch"
+                  color={"#1d1d1d"}
+                  size={20}
+                />
+                <View style={styles.inpectionContentText}>
+                  <AppText color={"#1d1d1d"} fontSize={10}>
+                    Mechanical & electrical
+                  </AppText>
+                  <AppText color={"#BBBBBB"} fontSize={8}>
+                    Click to Edit
+                  </AppText>
+                </View>
+              </View>
+              <View style={styles.inpsectionRating}>
+                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
+                  Overall Rating
+                </AppText>
+                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
+                  0.0/10
+                </AppText>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+          {/* ////////////////////////////////////////////// */}
+          <TouchableWithoutFeedback onPress={inpection}>
+            <View style={styles.inscpectionCard}>
+              <View style={styles.inpsectionContent}>
+                <MaterialCommunityIcons
+                  name="tire"
+                  color={"#1d1d1d"}
+                  size={20}
+                />
+                <View style={styles.inpectionContentText}>
+                  <AppText color={"#1d1d1d"} fontSize={10}>
+                    Wheels
+                  </AppText>
+                  <AppText color={"#BBBBBB"} fontSize={8}>
+                    Click to Edit
+                  </AppText>
+                </View>
+              </View>
+              <View style={styles.inpsectionRating}>
+                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
+                  Overall Rating
+                </AppText>
+                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
+                  0.0/10
+                </AppText>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+          <View style={styles.inscpectionButton}>
+            <GradientButton>Submit Inspection Report</GradientButton>
+          </View>
+        </View>
       </View>
     </AppScreen>
   );
@@ -160,5 +333,26 @@ const styles = StyleSheet.create({
   },
   InspectionBoardContainer: {
     marginTop: 20,
+  },
+  inscpectionCardsBox: {
+    paddingHorizontal: 20,
+    marginVertical: 15,
+    gap: 10,
+  },
+  inscpectionCard: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 5,
+    padding: 20,
+  },
+  inpsectionContent: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+  },
+  inscpectionButton: {
+    marginTop: 10,
   },
 });

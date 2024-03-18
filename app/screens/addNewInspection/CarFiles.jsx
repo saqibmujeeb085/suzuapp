@@ -1,14 +1,31 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import AppScreen from "../../components/screen/Screen";
 import InspectionHeader from "../../components/header/InspectionHeader";
 import ImagePicker from "../../components/imagePicker/ImagePicker";
 import GradientButton from "../../components/buttons/GradientButton";
 import IconButton from "../../components/buttons/IconButton";
+import ProcessModal from "../../components/modals/ProcessModal";
 
 const CarFiles = ({ navigation }) => {
+  const [show, setShow] = useState(false);
+  const ShowModal = () => {
+    setShow(!show);
+  };
   return (
     <AppScreen>
+      {show && (
+        <ProcessModal
+          show={show}
+          setShow={setShow}
+          icon
+          heading={"Customer ID: 0KD560PLF"}
+          text={"You have to complete the inspection in 20 minutes."}
+          pbtn={"Start Inspection Now"}
+          pbtnPress={() => navigation.navigate("Inspection")}
+          sbtn={"Save for later"}
+        />
+      )}
       <InspectionHeader onPress={() => navigation.goBack()}>
         Uploads
       </InspectionHeader>
@@ -20,9 +37,7 @@ const CarFiles = ({ navigation }) => {
           </IconButton>
         </View>
         <View style={styles.formButton}>
-          <GradientButton onPress={() => navigation.navigate("Inspection")}>
-            Start Inspection
-          </GradientButton>
+          <GradientButton onPress={ShowModal}>Start Inspection</GradientButton>
         </View>
       </View>
     </AppScreen>

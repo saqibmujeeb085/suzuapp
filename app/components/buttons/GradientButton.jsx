@@ -3,7 +3,7 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import AppText from "../text/Text";
 
-const GradientButton = ({ children, onPress, disabled }) => {
+const GradientButton = ({ size = 15, children, onPress, disabled }) => {
   return (
     <TouchableOpacity
       styles={styles.ButtonContainer}
@@ -16,7 +16,7 @@ const GradientButton = ({ children, onPress, disabled }) => {
         end={[0.6, 1]}
         style={styles.gredientButton}
       >
-        <AppText color={"white"} fontSize={15}>
+        <AppText color={"white"} fontSize={size}>
           {children}
         </AppText>
       </LinearGradient>
@@ -40,6 +40,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
     width: "100%",
-    minHeight: 60,
   },
 });
