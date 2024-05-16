@@ -1,23 +1,88 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
+import axios from "axios";
 import AppScreen from "../components/screen/Screen";
 import AppTextInput from "../components/formFields/TextInput";
+import Dropdown from "../components/formFields/Dropdown";
 import IconButton from "../components/buttons/IconButton";
 import GradientButton from "../components/buttons/GradientButton";
 import { Dimensions } from "react-native";
 import AppText from "../components/text/Text";
-import DropDownPicker from "react-native-dropdown-picker";
 
 const LogIn = ({ navigation }) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-  ]);
   const windowHeight = Dimensions.get("window").height;
+
+  const [selectedDealership, setSelectedDealership] = useState(null);
+  console.log(selectedDealership);
+
+  const [dealershipList, setDealershipList] = useState([]);
+  const [dealershipUserList, setDealershipUserList] = useState([]);
+
+  useEffect(() => {
+    dealershipName();
+  }, []);
+
+  useEffect(() => {
+    dealershipUserName();
+  }, []);
+
+  const dealershipName = async () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "https://saadurrehman.com/inspectionapp/apis/auth/get_dealerships.php",
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      let dealerships = response.data;
+      setDealershipList(
+        dealerships.map((object) => ({
+          key: object.did,
+          value: object.dname,
+        }))
+      );
+    } catch (error) {
+      console.error("Error fetching dealership data:", error);
+    }
+  };
+
+  const dealershipUserName = async () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://saadurrehman.com/inspectionapp/apis/auth/get_duser.php?did=${1}`,
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      const dealershipsUsers = response.data;
+
+      console.log("API response:", dealershipsUsers);
+
+      if (Array.isArray(dealershipsUsers)) {
+        setDealershipUserList(
+          dealershipsUsers.map((object) => ({
+            key: object.duserid,
+            value: object.userName,
+          }))
+        );
+      } else {
+        console.error("Unexpected API response format:", dealershipsUsers);
+      }
+    } catch (error) {
+      console.error("Error fetching dealership data:", error);
+    }
+  };
+
+  const DealershipSelected = (selected) => {
+    setSelectedDealership(selected);
+  };
+
   return (
     <AppScreen>
       <ImageBackground
@@ -39,15 +104,17 @@ const LogIn = ({ navigation }) => {
                 <Text style={styles.pageHeading}>Sign In</Text>
                 <View style={styles.formFieldContainer}>
                   {/* <AppTextInput placeholder="Name" /> */}
-                  <DropDownPicker
-                    placeholder="Dealership"
-                    searchable
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
+                  <Dropdown
+                    DropItems="Dealership Name"
+                    Data={dealershipList}
+                    Search={true}
+                    save={"key"}
+                    selectedItem={DealershipSelected}
+                  />
+                  <Dropdown
+                    DropItems="Dealership UserName"
+                    Data={dealershipUserList}
+                    save={"value"}
                   />
                   <AppTextInput
                     autoComplete="off"
