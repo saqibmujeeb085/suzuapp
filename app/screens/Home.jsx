@@ -2,16 +2,18 @@ import {
   FlatList,
   Image,
   ImageBackground,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import AppScreen from "../components/screen/Screen";
 import InspectionCard from "../components/card/InspectionCard";
 import AppText from "../components/text/Text";
 import IconButton from "../components/buttons/IconButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../context/authContext";
+
 
 
 const recentInspectionData = [
@@ -81,6 +83,14 @@ const recentInspectionData = [
 ];
 
 const Home = ({ navigation }) => {
+  const [user, setUser] = useContext(AuthContext);
+  const userLogout = async () => {
+     setUser({token:""})
+    await AsyncStorage.removeItem("@auth")
+    navigation.navigate("LogIn")
+    alert("Logout Succesfully")
+  }
+
   return (
     <AppScreen>
       <ImageBackground
@@ -99,7 +109,7 @@ const Home = ({ navigation }) => {
             </View>
             <TouchableOpacity
               activeOpacity={0.6}
-              onPress={() => navigation.navigate("LogIn")}
+              onPress={userLogout}
             >
               <View style={styles.logOutButton}>
                 <Image
