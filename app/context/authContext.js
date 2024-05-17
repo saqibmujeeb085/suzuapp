@@ -5,24 +5,23 @@ import axios from "axios";
 // Context
 const AuthContext = createContext();
 
-
 //Provider
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
   //Global
   const [user, setUser] = useState({
     token: "",
   });
-  
+
   //Base URL
   axios.defaults.baseURL = "https://saadurrehman.com/inspectionapp/apis";
-  
+
   // Local Storage Initial Data
   useEffect(() => {
     const localStorageData = async () => {
       let data = await AsyncStorage.getItem("@auth");
       let loginData = JSON.parse(data);
       setUser({
-        ...state,
+        ...user,
         token: data?.token,
       });
     };

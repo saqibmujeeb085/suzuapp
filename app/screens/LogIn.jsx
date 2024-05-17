@@ -12,41 +12,39 @@ import { Dimensions } from "react-native";
 import AppText from "../components/text/Text";
 import { AuthContext } from "../context/authContext";
 
-
 const LogIn = ({ navigation }) => {
-
   const windowHeight = Dimensions.get("window").height;
 
   const [user, setUser] = useContext(AuthContext);
 
+  console.log(user);
+
   const [dealershipList, setDealershipList] = useState([]);
   const [dealershipUserList, setDealershipUserList] = useState([]);
-  
+
   const [selectedDealership, setSelectedDealership] = useState("");
   const [selectedDealershipUser, setSelectedDealershipUser] = useState("");
-  const [selectedDealershipUserPassword, setSelectedDealershipUserPassword] = useState("");
+  const [selectedDealershipUserPassword, setSelectedDealershipUserPassword] =
+    useState("");
 
-  console.log(selectedDealershipUserPassword)
-  
+  console.log(selectedDealershipUserPassword);
+
   useEffect(() => {
     dealershipName();
   }, []);
-  
+
   useEffect(() => {
-    if(selectedDealership >= 1){
-    dealershipUserName();
-  }
+    if (selectedDealership >= 1) {
+      dealershipUserName();
+    }
   }, [selectedDealership]);
 
-  
   const DealershipSelected = (selected) => {
     setSelectedDealership(selected);
   };
   const DealershipUserSelected = (selected) => {
     setSelectedDealershipUser(selected);
   };
-
-
 
   const dealershipName = async () => {
     let config = {
@@ -99,24 +97,31 @@ const LogIn = ({ navigation }) => {
     }
   };
 
- 
-  const userLogin = async() => {
-    try{
-    let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: `/auth/login.php?userName=${selectedDealershipUser}&password=${selectedDealershipUserPassword}&dId=${selectedDealership}`,
-      headers: { }
-    };
-    
-    const response = await axios.request(config);
-        setUser(response.data)
-        navigation.navigate("Home")
-        alert("login Succesfully")
+  const userLogin = async () => {
+    if (
+      selectedDealershipUser != "" ||
+      selectedDealershipUserPassword != "" ||
+      selectedDealership != ""
+    ) {
+      try {
+        let config = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: `/auth/login.php?userName=${selectedDealershipUser}&password=${selectedDealershipUserPassword}&dId=${selectedDealership}`,
+          headers: {},
+        };
+
+        const response = await axios.request(config);
+        setUser(response.data);
+        navigation.navigate("Home");
+        alert("login Succesfully");
       } catch (error) {
         console.log(error);
       }
-  }
+    } else {
+      alert("Please select both fields and type your password");
+    }
+  };
 
   return (
     <AppScreen>
@@ -155,7 +160,9 @@ const LogIn = ({ navigation }) => {
                   <AppTextInput
                     autoComplete="off"
                     placeholder="Enter Your Password Here"
-                    onChangeText={(value)=>setSelectedDealershipUserPassword(value)}
+                    onChangeText={(value) =>
+                      setSelectedDealershipUserPassword(value)
+                    }
                   />
                   <View style={styles.forgetBtn}>
                     <IconButton
@@ -165,9 +172,7 @@ const LogIn = ({ navigation }) => {
                       Forget Password
                     </IconButton>
                   </View>
-                  <GradientButton onPress={userLogin}>
-                    Sign in
-                  </GradientButton>
+                  <GradientButton onPress={userLogin}>Sign in</GradientButton>
                   <View
                     style={{
                       justifyContent: "center",

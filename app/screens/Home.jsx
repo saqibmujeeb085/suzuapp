@@ -14,8 +14,6 @@ import IconButton from "../components/buttons/IconButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/authContext";
 
-
-
 const recentInspectionData = [
   {
     id: "1",
@@ -85,11 +83,10 @@ const recentInspectionData = [
 const Home = ({ navigation }) => {
   const [user, setUser] = useContext(AuthContext);
   const userLogout = async () => {
-     setUser({token:""})
-    await AsyncStorage.removeItem("@auth")
-    navigation.navigate("LogIn")
-    alert("Logout Succesfully")
-  }
+    setUser({ token: "" });
+    await AsyncStorage.removeItem("@auth");
+    alert("Logout Succesfully");
+  };
 
   return (
     <AppScreen>
@@ -107,10 +104,7 @@ const Home = ({ navigation }) => {
                 User ID: 0PRF56FH0
               </AppText>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={userLogout}
-            >
+            <TouchableOpacity activeOpacity={0.6} onPress={userLogout}>
               <View style={styles.logOutButton}>
                 <Image
                   source={require("../assets/componentsImages/logout.png")}
@@ -166,16 +160,20 @@ const Home = ({ navigation }) => {
               Recent Inspections
             </AppText>
           </View>
-          <IconButton icon={"format-list-bulleted"} color={"#323232"} fontSize={12}>
+          <IconButton
+            icon={"format-list-bulleted"}
+            color={"#323232"}
+            fontSize={12}
+          >
             View All
           </IconButton>
         </View>
         <FlatList
-         contentContainerStyle={{
-          paddingBottom: 30
-         }}
-         showsVerticalScrollIndicator={false}
-  showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 30,
+          }}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 190 }}
           data={recentInspectionData}
           keyExtractor={(recentInspectionData) =>
