@@ -11,10 +11,9 @@ const Stack = createStackNavigator();
 const NewInspectionNavigation = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName="CustomerDetails"
+      screenOptions={{ headerShown: false, presentation: "transparentModal" }}
     >
-      <Stack.Screen name="CustomerDetails" component={CustomerDetails} />
+      {/* <Stack.Screen name="CustomerDetails" component={CustomerDetails} /> */}
       <Stack.Screen name="CarDetails" component={CarDetails} />
       <Stack.Screen name="CarBodyDetails" component={CarBodyDetails} />
       <Stack.Screen name="CarFiles" component={CarFiles} />

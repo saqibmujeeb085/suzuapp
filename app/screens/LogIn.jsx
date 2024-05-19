@@ -11,23 +11,19 @@ import GradientButton from "../components/buttons/GradientButton";
 import { Dimensions } from "react-native";
 import AppText from "../components/text/Text";
 import { AuthContext } from "../context/authContext";
+import { Toast } from 'toastify-react-native'
 
 const LogIn = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
 
-  const [user, setUser] = useContext(AuthContext);
-
-  console.log(user);
+  const [userData, setUserData] = useContext(AuthContext);
 
   const [dealershipList, setDealershipList] = useState([]);
   const [dealershipUserList, setDealershipUserList] = useState([]);
 
   const [selectedDealership, setSelectedDealership] = useState("");
   const [selectedDealershipUser, setSelectedDealershipUser] = useState("");
-  const [selectedDealershipUserPassword, setSelectedDealershipUserPassword] =
-    useState("");
-
-  console.log(selectedDealershipUserPassword);
+  const [selectedDealershipUserPassword, setSelectedDealershipUserPassword] = useState("");
 
   useEffect(() => {
     dealershipName();
@@ -80,8 +76,6 @@ const LogIn = ({ navigation }) => {
       const response = await axios.request(config);
       const dealershipsUsers = response.data;
 
-      console.log("API response:", dealershipsUsers);
-
       if (Array.isArray(dealershipsUsers)) {
         setDealershipUserList(
           dealershipsUsers.map((object) => ({
@@ -99,9 +93,9 @@ const LogIn = ({ navigation }) => {
 
   const userLogin = async () => {
     if (
-      selectedDealershipUser != "" ||
-      selectedDealershipUserPassword != "" ||
-      selectedDealership != ""
+      selectedDealershipUser !== "" &&
+      selectedDealershipUserPassword !== "" &&
+      selectedDealership !== ""
     ) {
       try {
         let config = {
@@ -112,16 +106,26 @@ const LogIn = ({ navigation }) => {
         };
 
         const response = await axios.request(config);
-        setUser(response.data);
+        if(response.data.code === 200){
+        setUserData(response.data);
         navigation.navigate("Home");
         alert("login Succesfully");
-      } catch (error) {
-        console.log(error);
+      } else{
+        alert(response.data.message);
       }
+      } catch (error) {
+        alert(error)
+      }
+    
     } else {
       alert("Please select both fields and type your password");
     }
   };
+
+
+
+
+
 
   return (
     <AppScreen>

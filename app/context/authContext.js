@@ -8,7 +8,7 @@ const AuthContext = createContext();
 //Provider
 const AuthProvider = ({ children }) => {
   //Global
-  const [user, setUser] = useState({
+  const [userData, setUserData] = useState({
     token: "",
   });
 
@@ -20,15 +20,15 @@ const AuthProvider = ({ children }) => {
     const localStorageData = async () => {
       let data = await AsyncStorage.getItem("@auth");
       let loginData = JSON.parse(data);
-      setUser({
-        ...user,
+      setUserData({
+        ...userData,
         token: data?.token,
       });
     };
     localStorageData();
   }, []);
   return (
-    <AuthContext.Provider value={[user, setUser]}>
+    <AuthContext.Provider value={[userData, setUserData]}>
       {children}
     </AuthContext.Provider>
   );

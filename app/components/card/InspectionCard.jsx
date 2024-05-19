@@ -5,10 +5,11 @@ import { colors } from "../../constants/colors";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 
 const InspectionCard = ({ car, model, date, customer, carImage }) => {
+  console.log(carImage)
   return (
     <View style={styles.Container}>
       <View style={styles.inspectionDestailsContainer}>
-        <Image source={carImage} style={styles.image} />
+        <Image source={{uri: carImage}} style={styles.image} />
         <View style={styles.contentContainer}>
           <AppText color={colors.black} fontSize={11}>
             {car}
@@ -33,12 +34,14 @@ const InspectionCard = ({ car, model, date, customer, carImage }) => {
           width={8}
           fill={91}
           tintColor="#009E10"
-          onAnimationComplete={() => console.log("onAnimationComplete")}
           backgroundColor="#F4F4F4"
+          duration={2000}
         >
-          {(fill) => {
-            <AppText color="black">9.1</AppText>;
-          }}
+          {
+          () => (
+          <AppText>50</AppText>
+          )
+        }
         </AnimatedCircularProgress>
       </View>
     </View>

@@ -6,13 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppScreen from "../components/screen/Screen";
 import InspectionCard from "../components/card/InspectionCard";
 import AppText from "../components/text/Text";
 import IconButton from "../components/buttons/IconButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/authContext";
+import axios from "axios";
+
+
 
 const recentInspectionData = [
   {
@@ -81,12 +84,50 @@ const recentInspectionData = [
 ];
 
 const Home = ({ navigation }) => {
-  const [user, setUser] = useContext(AuthContext);
+  const [userData, setUserData] = useContext(AuthContext);
+  const [inspectedCar, setInspectedCar] = useState([]);
+   
+  console.log(inspectedCar)
+
+  useEffect(() => {
+    inspectedCarsData()
+  }, [])
+  
+
   const userLogout = async () => {
     setUser({ token: "" });
     await AsyncStorage.removeItem("@auth");
     alert("Logout Succesfully");
   };
+
+  const inspectedCarsData = () =>{
+
+let config = {
+  method: 'get',
+  maxBodyLength: Infinity,
+  url: 'https://saadurrehman.com/inspectionapp/apis/auth/get_carinfos.php?duserId=1',
+  headers: { }
+};
+
+
+
+axios.request(config)
+.then((response) => {
+  setInspectedCar(response.data)
+})
+.catch((error) => {
+  console.log(error);
+});
+
+}
+
+
+
+
+
+
+
+  
 
   return (
     <AppScreen>
@@ -98,10 +139,13 @@ const Home = ({ navigation }) => {
           <View style={styles.customerDetailsAndLogout}>
             <View style={styles.customerDetails}>
               <AppText color={"white"} fontSize={16}>
-                I.G Motors, Karachi
+                {userData.user.dname}
               </AppText>
               <AppText color={"#cccccc"} fontSize={10}>
-                User ID: 0PRF56FH0
+                User ID: {userData.user.duserid}
+              </AppText>
+              <AppText color={"#cccccc"} fontSize={10}>
+                Name: {userData.user.userName}
               </AppText>
             </View>
             <TouchableOpacity activeOpacity={0.6} onPress={userLogout}>
@@ -175,17 +219,17 @@ const Home = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 190 }}
-          data={recentInspectionData}
-          keyExtractor={(recentInspectionData) =>
-            recentInspectionData.id.toString()
+          data={inspectedCar}
+          keyExtractor={
+            inspectedCar.id
           }
           renderItem={({ item }) => (
             <InspectionCard
               car={item.car}
-              customer={item.customet}
+              customer={item.customerName}
               model={item.model}
-              date={item.dateTime}
-              carImage={item.carimage}
+              date={item.inspectionDate}
+              carImage={item.carPic}
             />
           )}
         />

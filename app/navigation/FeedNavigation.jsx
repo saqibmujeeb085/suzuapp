@@ -8,9 +8,9 @@ import { AuthContext } from "../context/authContext";
 
 const Stack = createStackNavigator();
 const FeedNavigation = () => {
-  const [user] = useContext(AuthContext);
+  const [userData] = useContext(AuthContext);
 
-  const authenticatedUser = user?.token;
+  const authenticatedUser = userData?.token;
 
   return (
     <Stack.Navigator
