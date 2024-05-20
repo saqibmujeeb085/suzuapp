@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
   //Global
   const [userData, setUserData] = useState({
     token: "",
+    user: "",
   });
 
   //Base URL
@@ -23,6 +24,7 @@ const AuthProvider = ({ children }) => {
       setUserData({
         ...userData,
         token: data?.token,
+        user: data?.user,
       });
     };
     localStorageData();

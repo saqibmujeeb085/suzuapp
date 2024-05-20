@@ -15,8 +15,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
 
-
-
 const recentInspectionData = [
   {
     id: "1",
@@ -86,48 +84,34 @@ const recentInspectionData = [
 const Home = ({ navigation }) => {
   const [userData, setUserData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
-   
-  console.log(inspectedCar)
 
   useEffect(() => {
-    inspectedCarsData()
-  }, [])
-  
+    inspectedCarsData();
+  }, []);
 
   const userLogout = async () => {
-    setUser({ token: "" });
+    setUserData({ token: "", user: "" });
     await AsyncStorage.removeItem("@auth");
     alert("Logout Succesfully");
   };
 
-  const inspectedCarsData = () =>{
+  const inspectedCarsData = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://saadurrehman.com/inspectionapp/apis/auth/get_carinfos.php?duserId=${userData.user.duserid}`,
+      headers: {},
+    };
 
-let config = {
-  method: 'get',
-  maxBodyLength: Infinity,
-  url: 'https://saadurrehman.com/inspectionapp/apis/auth/get_carinfos.php?duserId=1',
-  headers: { }
-};
-
-
-
-axios.request(config)
-.then((response) => {
-  setInspectedCar(response.data)
-})
-.catch((error) => {
-  console.log(error);
-});
-
-}
-
-
-
-
-
-
-
-  
+    axios
+      .request(config)
+      .then((response) => {
+        setInspectedCar(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <AppScreen>
@@ -220,9 +204,7 @@ axios.request(config)
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 190 }}
           data={inspectedCar}
-          keyExtractor={
-            inspectedCar.id
-          }
+          keyExtractor={inspectedCar.id}
           renderItem={({ item }) => (
             <InspectionCard
               car={item.car}

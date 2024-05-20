@@ -27,7 +27,12 @@
       "favicon": "./app/assets/favicon.png"
     }, 
     "plugins": [
-      "expo-font",
+      [
+        "expo-font",
+        {
+          "fonts": ["./app/assets/fonts/Outfit.ttf"]
+        }
+      ],
       "expo-image-picker"
     ]
   }

@@ -11,19 +11,20 @@ import GradientButton from "../components/buttons/GradientButton";
 import { Dimensions } from "react-native";
 import AppText from "../components/text/Text";
 import { AuthContext } from "../context/authContext";
-import { Toast } from 'toastify-react-native'
 
 const LogIn = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
 
   const [userData, setUserData] = useContext(AuthContext);
+  console.log(userData);
 
   const [dealershipList, setDealershipList] = useState([]);
   const [dealershipUserList, setDealershipUserList] = useState([]);
 
   const [selectedDealership, setSelectedDealership] = useState("");
   const [selectedDealershipUser, setSelectedDealershipUser] = useState("");
-  const [selectedDealershipUserPassword, setSelectedDealershipUserPassword] = useState("");
+  const [selectedDealershipUserPassword, setSelectedDealershipUserPassword] =
+    useState("");
 
   useEffect(() => {
     dealershipName();
@@ -106,26 +107,20 @@ const LogIn = ({ navigation }) => {
         };
 
         const response = await axios.request(config);
-        if(response.data.code === 200){
-        setUserData(response.data);
-        navigation.navigate("Home");
-        alert("login Succesfully");
-      } else{
-        alert(response.data.message);
-      }
+        if (response.data.code === 200) {
+          setUserData(response.data);
+          navigation.navigate("Home");
+          alert("Login Successfully");
+        } else {
+          alert(response.data.message);
+        }
       } catch (error) {
-        alert(error)
+        alert(error);
       }
-    
     } else {
       alert("Please select both fields and type your password");
     }
   };
-
-
-
-
-
 
   return (
     <AppScreen>
@@ -147,7 +142,6 @@ const LogIn = ({ navigation }) => {
               <View style={styles.formContainer}>
                 <Text style={styles.pageHeading}>Sign In</Text>
                 <View style={styles.formFieldContainer}>
-                  {/* <AppTextInput placeholder="Name" /> */}
                   <Dropdown
                     DropItems="Dealership Name"
                     Data={dealershipList}
@@ -228,7 +222,7 @@ const styles = StyleSheet.create({
   headerHeading: {
     color: "white",
     fontSize: 33,
-    fontFamily: "Roboto",
+    fontFamily: "Outfit",
     lineHeight: 45,
     width: 320,
     paddingLeft: 20,
