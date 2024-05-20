@@ -30,7 +30,7 @@
       [
         "expo-font",
         {
-          "fonts": ["./app/assets/fonts/Outfit.ttf"]
+          "fonts": ["./app/assets/fonts/Suzuki-Bold.ttf", "./app/assets/fonts/Suzuki-Regular.ttf"]
         }
       ],
       "expo-image-picker"

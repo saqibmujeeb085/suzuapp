@@ -15,73 +15,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
 
-const recentInspectionData = [
-  {
-    id: "1",
-    car: "Toyota Camry 1",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "2",
-    car: "Toyota Camry 2",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "3",
-    car: "Toyota Camry 3",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "4",
-    car: "Toyota Camry 4",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "5",
-    car: "Toyota Camry 5",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "6",
-    car: "Toyota Camry 6",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "7",
-    car: "Toyota Camry 7",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "8",
-    car: "Toyota Camry 8",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-  {
-    id: "9",
-    car: "Toyota Camry 9",
-    model: "2019 Toyota Camry LE",
-    dateTime: "10/10/2024 - 8:45 AM",
-    carimage: require("../assets/componentsImages/car.png"),
-  },
-];
 
-const Home = ({ navigation }) => {
+const Home = () => {
   const [userData, setUserData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
 

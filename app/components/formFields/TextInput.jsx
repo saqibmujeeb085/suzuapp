@@ -1,6 +1,9 @@
 import { TextInput, StyleSheet } from "react-native";
 import React from "react";
 import { colors } from "../../constants/colors";
+import { mainStyles } from "../../constants/style";
+
+
 
 const AppTextInput = ({ ...inputType }) => {
   return <TextInput {...inputType} style={styles.inputField} />;
@@ -10,9 +13,9 @@ export default AppTextInput;
 
 const styles = StyleSheet.create({
   inputField: {
-    fontSize: 10,
+    fontSize: mainStyles.h3FontSize.fontSize,
     color: colors.mediumGrey,
-    backgroundColor: colors.white,
+    backgroundColor: colors.whiteBg,
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 5,

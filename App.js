@@ -5,12 +5,12 @@ import { useFonts } from "expo-font";
 import { AuthProvider } from "./app/context/authContext";
 import * as SplashScreen from "expo-splash-screen";
 
-// Prevent auto-hiding the splash screen
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Outfit: require("./app/assets/fonts/Outfit.ttf"),
+    suzukiRegular: require("./app/assets/fonts/Suzuki-Regular.ttf"),
+    suzukiBold: require("./app/assets/fonts/Suzuki-Bold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {

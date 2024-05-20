@@ -1,13 +1,13 @@
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
 import { mainStyles } from "../../constants/style";
 
-function AppText({ numberOfLines, ellipsizeMode, children, ...otherStyles }) {
+function AppText({ fontSize = 14, fontFamily = mainStyles.appFontRegular.fontFamily, numberOfLines, ellipsizeMode, children, ...styles }) {
   return (
     <Text
       numberOfLines={numberOfLines}
       ellipsizeMode={ellipsizeMode}
-      style={[styles.font, { ...otherStyles }]}
+      style={{ ...styles, fontFamily: fontFamily }}
     >
       {children}
     </Text>
@@ -16,9 +16,3 @@ function AppText({ numberOfLines, ellipsizeMode, children, ...otherStyles }) {
 
 export default AppText;
 
-const styles = StyleSheet.create({
-  fontSize: {
-    fontSize: 16,
-    fontFamily: mainStyles.appFont.fontFamily,
-  },
-});

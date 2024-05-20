@@ -178,7 +178,7 @@ const LogIn = ({ navigation }) => {
                     }}
                   >
                     <AppText
-                      width={200}
+                      width={300}
                       fontSize={10}
                       color={"#8b8b8b"}
                       textAlign={"center"}
@@ -191,7 +191,8 @@ const LogIn = ({ navigation }) => {
                 </View>
               </View>
               <AppText
-                marginBottom={30}
+                marginTop={10}
+                marginBottom={20}
                 textAlign={"center"}
                 color={"#6B6B6B"}
                 fontSize={10}
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
   headerHeading: {
     color: "white",
     fontSize: 33,
-    fontFamily: "Outfit",
+    fontFamily: "suzukiRegular",
     lineHeight: 45,
     width: 320,
     paddingLeft: 20,

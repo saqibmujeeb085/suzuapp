@@ -1,9 +1,9 @@
-import { colors } from "./colors";
-
-const mainStyles = {
-  colors,
-  appFont: {
-    fontFamily: "Outfit",
+export const mainStyles = {
+  appFontRegular: {
+    fontFamily: "suzukiRegular",
+  },
+  appFontBold: {
+    fontFamily: "suzukiBold",
   },
   ratingFontSize: {
     fontSize: 20,
@@ -34,4 +34,4 @@ const mainStyles = {
   },
 };
 
-export { mainStyles };
+
