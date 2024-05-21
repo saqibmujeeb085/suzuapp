@@ -7,11 +7,11 @@ import GradientButton from "../../components/buttons/GradientButton";
 import axios from "axios";
 import Dropdown from "../../components/formFields/Dropdown";
 import { InspecteCarContext } from "../../context/newInspectionContext";
+import { AuthContext } from "../../context/authContext";
 
 const CarDetails = ({ navigation }) => {
+  const [userData, setUserData] = useContext(AuthContext);
   const [carData, setCarData] = useContext(InspecteCarContext);
-
-  console.log(carData);
 
   const [manufacturers, setManufacturers] = useState([]);
   const [carModels, setCarModels] = useState([]);
@@ -81,7 +81,7 @@ const CarDetails = ({ navigation }) => {
 
     try {
       const response = await axios.request(config);
-      console.log(JSON.stringify(response.data));
+
       const ManufacturerNames = response.data;
       setManufacturers(
         ManufacturerNames.map((object) => ({
@@ -106,7 +106,7 @@ const CarDetails = ({ navigation }) => {
       .request(config)
       .then((response) => {
         const ModelNames = response.data;
-        console.log(JSON.stringify(response.data));
+
         if (Array.isArray(ModelNames)) {
           setCarModels(
             ModelNames.map((object) => ({
@@ -135,7 +135,7 @@ const CarDetails = ({ navigation }) => {
       .request(config)
       .then((response) => {
         const VarientNames = response.data;
-        console.log(JSON.stringify(response.data));
+
         if (Array.isArray(VarientNames)) {
           setCarVarients(
             VarientNames.map((object) => ({
@@ -162,7 +162,7 @@ const CarDetails = ({ navigation }) => {
 
     try {
       const response = await axios.request(config);
-      console.log(JSON.stringify(response.data));
+
       const CarColors = response.data;
       setCarColors(
         CarColors.map((object) => ({
@@ -176,13 +176,17 @@ const CarDetails = ({ navigation }) => {
   };
 
   const addCarDetails = () => {
-    setCarData({
+    setCarData((prevData) => ({
+      ...prevData,
+
+      dealershipId: userData.user.dId,
+      duserId: userData.user.duserid,
       mfgId: manufacturer,
       carId: carModel,
       varientId: carVarient,
       model: carYear,
       color: carColor,
-    });
+    }));
     navigation.navigate("CarBodyDetails");
   };
 
@@ -192,22 +196,19 @@ const CarDetails = ({ navigation }) => {
         Car Details
       </InspectionHeader>
       <View style={styles.InspectionformContainer}>
-        {/* <AppTextInput placeholder="Manufacturer" /> */}
         <Dropdown
           DropItems="Manufacturer"
           Data={manufacturers}
           save={"key"}
           selectedItem={ManufacturerSelected}
         />
-        {/* <AppTextInput placeholder="Model" /> */}
+
         <Dropdown
           DropItems="Model"
           Data={carModels}
           save={"key"}
           selectedItem={CarModelSelected}
         />
-
-        {/* //////////////////////////////// */}
 
         <Dropdown
           DropItems="Car Varient"
@@ -216,7 +217,6 @@ const CarDetails = ({ navigation }) => {
           selectedItem={CarVarientSelected}
         />
 
-        {/* <AppTextInput placeholder="Manufacturer Year" /> */}
         <Dropdown
           DropItems="Manufacturer Year"
           Data={carYears}
@@ -224,7 +224,7 @@ const CarDetails = ({ navigation }) => {
           selectedItem={CarYearSelected}
           Search={true}
         />
-        {/* <AppTextInput placeholder="Color" /> */}
+
         <Dropdown
           DropItems="Color"
           Data={carColors}

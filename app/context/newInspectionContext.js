@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
 
 // Context
 const InspecteCarContext = createContext();
@@ -31,9 +30,7 @@ const InspecteCarProvider = ({ children }) => {
     status: "draft",
   });
 
-  //Base URL
-  axios.defaults.baseURL = "https://saadurrehman.com/inspectionapp/apis";
-
+  
   // Local Storage Initial Data
   useEffect(() => {
     const localStorageData = async () => {
