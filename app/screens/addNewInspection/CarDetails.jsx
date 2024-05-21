@@ -1,25 +1,238 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import AppScreen from "../../components/screen/Screen";
 import InspectionHeader from "../../components/header/InspectionHeader";
-import AppTextInput from "../../components/formFields/TextInput";
+// import AppTextInput from "../../components/formFields/TextInput";
 import GradientButton from "../../components/buttons/GradientButton";
+import axios from "axios";
+import Dropdown from "../../components/formFields/Dropdown";
+import { InspecteCarContext } from "../../context/newInspectionContext";
 
 const CarDetails = ({ navigation }) => {
+  const [carData, setCarData] = useContext(InspecteCarContext);
+
+  console.log(carData);
+
+  const [manufacturers, setManufacturers] = useState([]);
+  const [carModels, setCarModels] = useState([]);
+  const [carVarients, setCarVarients] = useState([]);
+  const [carYears, setCarYears] = useState([]);
+  const [carColors, setCarColors] = useState([]);
+
+  const [manufacturer, setManufacturer] = useState("");
+  const [carModel, setCarModel] = useState("");
+  const [carVarient, setCarVarient] = useState("");
+  const [carYear, setCarYear] = useState("");
+  const [carColor, setCarColor] = useState("");
+
+  const ManufacturerSelected = (selected) => {
+    setManufacturer(selected);
+  };
+  const CarModelSelected = (selected) => {
+    setCarModel(selected);
+  };
+  const CarVarientSelected = (selected) => {
+    setCarVarient(selected);
+  };
+  const CarYearSelected = (selected) => {
+    setCarYear(selected);
+  };
+  const CarColorSelected = (selected) => {
+    setCarColor(selected);
+  };
+
+  useEffect(() => {
+    fetchManufacturers();
+
+    fetchCarColors();
+
+    const currentYear = new Date().getFullYear();
+    const yearList = [];
+
+    for (let year = currentYear, id = 1; year >= 1950; year--, id++) {
+      yearList.push({
+        key: id.toString(),
+        value: year.toString(),
+      });
+    }
+
+    return setCarYears(yearList);
+  }, []);
+
+  useEffect(() => {
+    if (manufacturer >= 1) {
+      fetchCarModel();
+    }
+  }, [manufacturer]);
+
+  useEffect(() => {
+    if (carModel >= 1) {
+      fetchCarVarient();
+    }
+  }, [carModel]);
+
+  const fetchManufacturers = async () => {
+    const config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "/auth/get_carmanufacturer.php",
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      console.log(JSON.stringify(response.data));
+      const ManufacturerNames = response.data;
+      setManufacturers(
+        ManufacturerNames.map((object) => ({
+          key: object.id,
+          value: object.name,
+        }))
+      );
+    } catch (error) {
+      console.error("Error fetching manufacturers:", error);
+    }
+  };
+
+  const fetchCarModel = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `/auth/get_carlist.php?manufacturerID=${manufacturer}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        const ModelNames = response.data;
+        console.log(JSON.stringify(response.data));
+        if (Array.isArray(ModelNames)) {
+          setCarModels(
+            ModelNames.map((object) => ({
+              key: object.Id,
+              value: object.Car,
+            }))
+          );
+        } else {
+          console.error("Unexpected API response format:", ModelNames);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const fetchCarVarient = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `/auth/get_cartype.php?carID=${carModel}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        const VarientNames = response.data;
+        console.log(JSON.stringify(response.data));
+        if (Array.isArray(VarientNames)) {
+          setCarVarients(
+            VarientNames.map((object) => ({
+              key: object.id,
+              value: object.CarType,
+            }))
+          );
+        } else {
+          console.error("Unexpected API response format:", VarientNames);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const fetchCarColors = async () => {
+    const config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "/auth/get_color.php",
+      headers: {},
+    };
+
+    try {
+      const response = await axios.request(config);
+      console.log(JSON.stringify(response.data));
+      const CarColors = response.data;
+      setCarColors(
+        CarColors.map((object) => ({
+          key: object.id,
+          value: object.color,
+        }))
+      );
+    } catch (error) {
+      console.error("Error fetching manufacturers:", error);
+    }
+  };
+
+  const addCarDetails = () => {
+    setCarData({
+      mfgId: manufacturer,
+      carId: carModel,
+      varientId: carVarient,
+      model: carYear,
+      color: carColor,
+    });
+    navigation.navigate("CarBodyDetails");
+  };
+
   return (
     <AppScreen>
       <InspectionHeader onPress={() => navigation.goBack()}>
         Car Details
       </InspectionHeader>
       <View style={styles.InspectionformContainer}>
-        <AppTextInput placeholder="Manufacturer" />
-        <AppTextInput placeholder="Model" />
-        <AppTextInput placeholder="Manufacturer Year" />
-        <AppTextInput placeholder="Color" />
+        {/* <AppTextInput placeholder="Manufacturer" /> */}
+        <Dropdown
+          DropItems="Manufacturer"
+          Data={manufacturers}
+          save={"key"}
+          selectedItem={ManufacturerSelected}
+        />
+        {/* <AppTextInput placeholder="Model" /> */}
+        <Dropdown
+          DropItems="Model"
+          Data={carModels}
+          save={"key"}
+          selectedItem={CarModelSelected}
+        />
+
+        {/* //////////////////////////////// */}
+
+        <Dropdown
+          DropItems="Car Varient"
+          Data={carVarients}
+          save={"key"}
+          selectedItem={CarVarientSelected}
+        />
+
+        {/* <AppTextInput placeholder="Manufacturer Year" /> */}
+        <Dropdown
+          DropItems="Manufacturer Year"
+          Data={carYears}
+          save={"value"}
+          selectedItem={CarYearSelected}
+          Search={true}
+        />
+        {/* <AppTextInput placeholder="Color" /> */}
+        <Dropdown
+          DropItems="Color"
+          Data={carColors}
+          save={"value"}
+          selectedItem={CarColorSelected}
+        />
         <View style={styles.formButton}>
-          <GradientButton onPress={() => navigation.navigate("CarBodyDetails")}>
-            Next
-          </GradientButton>
+          <GradientButton onPress={addCarDetails}>Next</GradientButton>
         </View>
       </View>
     </AppScreen>

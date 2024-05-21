@@ -1,37 +1,13 @@
 export const mainStyles = {
-  appFontRegular: {
-    fontFamily: "suzukiRegular",
-  },
-  appFontBold: {
-    fontFamily: "suzukiBold",
-  },
-  ratingFontSize: {
-    fontSize: 20,
-  },
-  h1FontSize: {
-    fontSize: 16,
-  },
-  h2FontSize: {
-    fontSize: 12,
-  },
-  h3FontSize: {
-    fontSize: 10,
-  },
-  h4FontSize: {
-    fontSize: 8,
-  },
-  tabsIconSize: {
-    fontSize: 20,
-  },
-  arrowIconSize: {
-    fontSize: 15,
-  },
-  buttonIconSize: {
-    fontSize: 13,
-  },
-  borderRadius: {
-    borderRadius: 5,
-  },
+  appFontRegular: "suzukiRegular",
+  appFontBold: "suzukiBold",
+  ratingFontSize: 20,
+  h1FontSize: 16,
+  h2FontSize: 12,
+  h3FontSize: 10,
+  h4FontSize: 8,
+  tabsIconSize: 20,
+  arrowIconSize: 15,
+  buttonIconSize: 13,
+  borderRadius: 5,
 };
-
-

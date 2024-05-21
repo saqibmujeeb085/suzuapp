@@ -3,26 +3,27 @@ import React from "react";
 import AppText from "../text/Text";
 import { colors } from "../../constants/colors";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
+import { mainStyles } from "../../constants/style";
 
-const InspectionCard = ({ car, model, date, customer, carImage }) => {
-  console.log(carImage)
+const InspectionCard = ({ car, model, date, customer, carImage, rank }) => {
+  console.log(carImage);
   return (
     <View style={styles.Container}>
       <View style={styles.inspectionDestailsContainer}>
-        <Image source={{uri: carImage}} style={styles.image} />
+        <Image source={{ uri: carImage }} style={styles.image} />
         <View style={styles.contentContainer}>
-          <AppText color={colors.black} fontSize={11}>
+          <AppText color={colors.fontBlack} fontSize={mainStyles.h2FontSize}>
             {car}
           </AppText>
           <View style={styles.clientAndCarDetail}>
-            <AppText color={colors.black} fontSize={8}>
+            <AppText color={colors.fontBlack} fontSize={mainStyles.h3FontSize}>
               Model: {model}
             </AppText>
-            <AppText color={colors.black} fontSize={8}>
+            <AppText color={colors.fontBlack} fontSize={mainStyles.h3FontSize}>
               Customer: {customer}
             </AppText>
           </View>
-          <AppText color={colors.lightGrey} fontSize={8}>
+          <AppText color={colors.fontGrey} fontSize={mainStyles.h4FontSize}>
             {date}
           </AppText>
         </View>
@@ -31,17 +32,13 @@ const InspectionCard = ({ car, model, date, customer, carImage }) => {
       <View style={styles.inspectionRating}>
         <AnimatedCircularProgress
           size={55}
-          width={8}
-          fill={91}
+          width={55}
+          fill={50}
           tintColor="#009E10"
           backgroundColor="#F4F4F4"
-          duration={2000}
+          duration={1000}
         >
-          {
-          () => (
-          <AppText>50</AppText>
-          )
-        }
+          {() => <AppText fontSize={16}>{rank}</AppText>}
         </AnimatedCircularProgress>
       </View>
     </View>
@@ -57,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     borderRadius: 5,
-    backgroundColor: colors.white,
+    backgroundColor: colors.whiteBg,
     elevation: 10,
     marginVertical: 5,
     marginHorizontal: 20,

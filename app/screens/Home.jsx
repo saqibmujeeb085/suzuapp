@@ -15,7 +15,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
 
-
 const Home = () => {
   const [userData, setUserData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
@@ -34,7 +33,7 @@ const Home = () => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://saadurrehman.com/inspectionapp/apis/auth/get_carinfos.php?duserId=${userData.user.duserid}`,
+      url: `/auth/get_carinfos.php?duserId=${userData.user.duserid}`,
       headers: {},
     };
 
@@ -147,6 +146,7 @@ const Home = () => {
               model={item.model}
               date={item.inspectionDate}
               carImage={item.carPic}
+              rank={item.rank}
             />
           )}
         />

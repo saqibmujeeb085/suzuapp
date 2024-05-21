@@ -4,6 +4,7 @@ import FeedNavigation from "./app/navigation/FeedNavigation";
 import { useFonts } from "expo-font";
 import { AuthProvider } from "./app/context/authContext";
 import * as SplashScreen from "expo-splash-screen";
+import { InspecteCarProvider } from "./app/context/newInspectionContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -36,7 +37,9 @@ export default function App() {
   return (
     <NavigationContainer onLayout={onLayoutRootView}>
       <AuthProvider>
-        <FeedNavigation />
+        <InspecteCarProvider>
+          <FeedNavigation />
+        </InspecteCarProvider>
       </AuthProvider>
     </NavigationContainer>
   );
