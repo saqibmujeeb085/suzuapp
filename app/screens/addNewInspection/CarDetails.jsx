@@ -13,6 +13,8 @@ const CarDetails = ({ navigation }) => {
   const [userData, setUserData] = useContext(AuthContext);
   const [carData, setCarData] = useContext(InspecteCarContext);
 
+  console.log(carData);
+
   const [manufacturers, setManufacturers] = useState([]);
   const [carModels, setCarModels] = useState([]);
   const [carVarients, setCarVarients] = useState([]);
@@ -24,6 +26,7 @@ const CarDetails = ({ navigation }) => {
   const [carVarient, setCarVarient] = useState("");
   const [carYear, setCarYear] = useState("");
   const [carColor, setCarColor] = useState("");
+  const [cplc, setCplc] = useState("");
 
   const ManufacturerSelected = (selected) => {
     setManufacturer(selected);
@@ -40,6 +43,20 @@ const CarDetails = ({ navigation }) => {
   const CarColorSelected = (selected) => {
     setCarColor(selected);
   };
+  const CplcSelected = (selected) => {
+    setCplc(selected);
+  };
+
+  const cplcOptions = [
+    {
+      key: "1",
+      value: "Cleared",
+    },
+    {
+      key: "2",
+      value: "Non-Cleared",
+    },
+  ];
 
   useEffect(() => {
     fetchManufacturers();
@@ -186,6 +203,7 @@ const CarDetails = ({ navigation }) => {
       varientId: carVarient,
       model: carYear,
       color: carColor,
+      cplc: cplc,
     }));
     navigation.navigate("CarBodyDetails");
   };
@@ -230,6 +248,12 @@ const CarDetails = ({ navigation }) => {
           Data={carColors}
           save={"value"}
           selectedItem={CarColorSelected}
+        />
+        <Dropdown
+          DropItems="CPLC"
+          Data={cplcOptions}
+          save={"value"}
+          selectedItem={CplcSelected}
         />
         <View style={styles.formButton}>
           <GradientButton onPress={addCarDetails}>Next</GradientButton>

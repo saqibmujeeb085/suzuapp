@@ -18,6 +18,7 @@ const InspecteCarProvider = ({ children }) => {
     mfgId: "",
     carId: "",
     varientId: "",
+    engineDisplacement: "",
     model: "",
     cplc: "",
     buyingCode: "",
@@ -27,10 +28,10 @@ const InspecteCarProvider = ({ children }) => {
     registrationCity: "",
     FuelType: "",
     color: "",
+    carPic: "",
     status: "draft",
   });
 
-  
   // Local Storage Initial Data
   useEffect(() => {
     const localStorageData = async () => {
@@ -47,6 +48,7 @@ const InspecteCarProvider = ({ children }) => {
         mfgId: "",
         carId: "",
         varientId: "",
+        engineDisplacement: "",
         model: "",
         cplc: "",
         buyingCode: "",
@@ -56,6 +58,7 @@ const InspecteCarProvider = ({ children }) => {
         registrationCity: "",
         FuelType: "",
         color: "",
+        carPic: "",
         status: "draft",
       });
     };
