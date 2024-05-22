@@ -141,12 +141,13 @@ const Home = () => {
           keyExtractor={inspectedCar.id}
           renderItem={({ item }) => (
             <InspectionCard
-              car={item.car}
-              customer={item.customerName}
-              model={item.model}
-              date={item.inspectionDate}
-              carImage={item.carPic}
-              rank={item.rank}
+              carId={item?.id}
+              car={item?.car}
+              customer={item?.customerName}
+              model={item?.model}
+              date={item?.inspectionDate}
+              carImage={item?.carPic}
+              rank={item?.rank}
             />
           )}
         />

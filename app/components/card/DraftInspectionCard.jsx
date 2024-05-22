@@ -1,11 +1,11 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import AppText from "../text/Text";
 import { colors } from "../../constants/colors";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { mainStyles } from "../../constants/style";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const InspectionCard = ({ car, model, date, customer, carImage, rank }) => {
+const DraftInspectionCard = ({ car, model, date, customer, carImage }) => {
   console.log(carImage);
   return (
     <View style={styles.Container}>
@@ -29,23 +29,21 @@ const InspectionCard = ({ car, model, date, customer, carImage, rank }) => {
         </View>
       </View>
 
-      <View style={styles.inspectionRating}>
-        <AnimatedCircularProgress
-          size={55}
-          width={7}
-          fill={rank * "10"}
-          tintColor="#009E10"
-          backgroundColor="#F4F4F4"
-          duration={1000}
-        >
-          {() => <AppText fontSize={16}>{rank}</AppText>}
-        </AnimatedCircularProgress>
+      <View style={styles.actionButtons}>
+       
+       <TouchableOpacity activeOpacity={0.6}>
+      <MaterialCommunityIcons name={"clipboard-edit-outline"} size={18} color={colors.blueColor} />
+      </TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.6}>
+      <MaterialCommunityIcons name={"delete-outline"} size={20} color={colors.fontRed} />
+      </TouchableOpacity>
+        
       </View>
     </View>
   );
 };
 
-export default InspectionCard;
+export default DraftInspectionCard;
 
 const styles = StyleSheet.create({
   Container: {
@@ -74,5 +72,10 @@ const styles = StyleSheet.create({
   contentContainer: {
     justifyContent: "space-between",
   },
-  clientAndCarDetail: {},
+  actionButtons: {
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

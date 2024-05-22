@@ -8,64 +8,31 @@ import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import AppText from "../text/Text";
-import RNFetchBlob from "react-native-fetch-blob";
 
 const AppImagePicker = ({
   onImageSelected,
   onSelectedImageName,
-  onImageType,
 }) => {
-  // const [image, setImage] = useState(null);
-  // const [imageName, setImageName] = useState("");
-
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: false,
-  //     width: "100%",
-  //     height: "100%",
-  //     quality: 0.5,
-  //   });
-
-  //   if (!result.canceled) {
-  //     setImage(result.assets[0].uri);
-  //     setImageName(result.assets[0].fileName);
-  //     onImageSelected(result.assets[0].uri); // Pass the selected image URI to the callback function
-  //     onSelectedImageName(result.assets[0].fileName);
-  //   }
-  // };
-
+  
   const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState("");
-  const [imageType, setImageType] = useState("");
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: false,
-      width: "100%",
-      height: "100%",
       quality: 0.5,
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
-      setImageName(result.assets[0].fileName);
-      onImageSelected(result.assets[0].uri); // Pass the selected image URI to the callback function
-      onSelectedImageName(result.assets[0].fileName);
-      getImageType(result.assets[0].uri); // Get the image type
-    }
-  };
+      const localUri = result.assets[0].uri;
+      const filename = localUri.split('/').pop();
 
-  // Function to get the image type
-  const getImageType = async (imageUri) => {
-    try {
-      const response = await RNFetchBlob.fetch("GET", imageUri);
-      const contentType = response.info().headers["Content-Type"];
-      setImageType(contentType); // Set the image type state
-      onImageType(contentType); // Pass the image type to the callback function
-    } catch (error) {
-      console.error("Error:", error);
+      setImage(localUri);
+      setImageName(filename);
+
+      onImageSelected(localUri); // Pass the selected image URI to the callback function
+      onSelectedImageName(filename);
     }
   };
 

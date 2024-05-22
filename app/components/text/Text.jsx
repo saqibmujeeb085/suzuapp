@@ -15,10 +15,10 @@ function AppText({
       numberOfLines={numberOfLines}
       ellipsizeMode={ellipsizeMode}
       style={{
-        ...styles,
         fontFamily: fontFamily,
         fontSize: fontSize,
         textTransform: "capitalize",
+        ...styles,
       }}
     >
       {children}
