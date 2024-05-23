@@ -138,6 +138,7 @@ const Home = () => {
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 190 }}
           data={inspectedCar}
+          initialNumToRender={0}
           keyExtractor={inspectedCar.id}
           renderItem={({ item }) => (
             <InspectionCard

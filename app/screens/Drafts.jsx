@@ -11,15 +11,13 @@ import AppScreen from "../components/screen/Screen";
 import InspectionCard from "../components/card/InspectionCard";
 import AppText from "../components/text/Text";
 import axios from "axios";
-import {AuthContext} from "../context/authContext"
+import { AuthContext } from "../context/authContext";
 import DraftInspectionCard from "../components/card/DraftInspectionCard";
 
 const Drafts = () => {
-
   const [userData] = useContext(AuthContext);
-  
-  const [inspectedCar, setInspectedCar] = useState([]);
 
+  const [inspectedCar, setInspectedCar] = useState([]);
 
   useEffect(() => {
     let config = {
@@ -37,20 +35,15 @@ const Drafts = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  
+  }, [inspectedCar]);
 
   return (
     <AppScreen>
       <View style={styles.recentInspectionContainer}>
         <View style={styles.headingAndButton}>
-          
-            <AppText fontSize={14} color={"#323232"} >
-              Draft Inspections
-            </AppText>
-          
-          
+          <AppText fontSize={14} color={"#323232"}>
+            Draft Inspections
+          </AppText>
         </View>
         <FlatList
           contentContainerStyle={{

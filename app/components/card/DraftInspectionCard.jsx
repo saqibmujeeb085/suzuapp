@@ -4,13 +4,42 @@ import AppText from "../text/Text";
 import { colors } from "../../constants/colors";
 import { mainStyles } from "../../constants/style";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import axios from "axios";
 
-const DraftInspectionCard = ({ car, model, date, customer, carImage }) => {
+const DraftInspectionCard = ({
+  carId,
+  car,
+  model,
+  date,
+  customer,
+  carImage,
+}) => {
+  const deleteCar = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `/auth/delete-car.php?id=${carId}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   console.log(carImage);
   return (
     <View style={styles.Container}>
       <View style={styles.inspectionDestailsContainer}>
-        <Image source={{ uri: carImage }} style={styles.image} />
+        <Image
+          source={{ uri: `${process.env.IMAGE_URL}/${carImage}` }}
+          style={styles.image}
+        />
         <View style={styles.contentContainer}>
           <AppText color={colors.fontBlack} fontSize={mainStyles.h2FontSize}>
             {car}
@@ -30,14 +59,20 @@ const DraftInspectionCard = ({ car, model, date, customer, carImage }) => {
       </View>
 
       <View style={styles.actionButtons}>
-       
-       <TouchableOpacity activeOpacity={0.6}>
-      <MaterialCommunityIcons name={"clipboard-edit-outline"} size={18} color={colors.blueColor} />
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.6}>
-      <MaterialCommunityIcons name={"delete-outline"} size={20} color={colors.fontRed} />
-      </TouchableOpacity>
-        
+        <TouchableOpacity onPress={deleteCar} activeOpacity={0.6}>
+          <MaterialCommunityIcons
+            name={"eye-outline"}
+            size={18}
+            color={colors.blueColor}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.6}>
+          <MaterialCommunityIcons
+            name={"delete-outline"}
+            size={20}
+            color={colors.fontRed}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

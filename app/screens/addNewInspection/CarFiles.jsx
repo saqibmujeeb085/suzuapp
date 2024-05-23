@@ -14,8 +14,6 @@ const CarFiles = ({ navigation }) => {
   const [selectedImageName, setSelectedImageName] = useState(null);
   const [loading, setLoading] = useState(false);
 
-
-
   const [currentDateTime, setCurrentDateTime] = useState("");
 
   const [show, setShow] = useState(false);
@@ -27,7 +25,7 @@ const CarFiles = ({ navigation }) => {
     const padZero = (number) => (number < 10 ? `0${number}` : number);
 
     const date = new Date();
-    const month = padZero(date.getMonth() + 1); 
+    const month = padZero(date.getMonth() + 1);
     const day = padZero(date.getDate());
     const year = date.getFullYear();
 
@@ -41,16 +39,7 @@ const CarFiles = ({ navigation }) => {
     setCurrentDateTime(`${month}/${day}/${year} - ${hours}:${minutes}${ampm}`);
   };
 
-
-
-
-
-
-
-  const postCarDetails = async (
-    selectedImage,
-    selectedImageName
-  ) => {
+  const postCarDetails = async (selectedImage, selectedImageName) => {
     currentDateAndTime();
     setCarData((prevData) => ({
       ...prevData,
@@ -58,32 +47,32 @@ const CarFiles = ({ navigation }) => {
     }));
 
     let data = new FormData();
-    data.append("dealershipId", "1");
-    data.append("duserId", "1");
-    data.append("customerID", "1");
-    data.append("registrationNo", "5234532523");
-    data.append("chasisNo", "26667");
-    data.append("EngineNo", "5324523523");
-    data.append("inspectionDate", currentDateTime);
-    data.append("mfgId", "1");
-    data.append("carId", "2");
-    data.append("varientId", "1");
-    data.append("model", "corola");
-    data.append("cplc", "gkkjhgj");
-    data.append("buyingCode", "");
-    data.append("NoOfOwners", "7");
-    data.append("transmissionType", "Automatic");
-    data.append("mileage", "10000");
-    data.append("registrationCity", "City123");
-    data.append("FuelType", "Petrol");
-    data.append("color", "Red");
+    data.append("dealershipId", carData.dealershipId);
+    data.append("duserId", carData.duserId);
+    data.append("customerID", carData.customerID);
+    data.append("registrationNo", carData.registrationNo);
+    data.append("chasisNo", carData.chasisNo);
+    data.append("EngineNo", carData.EngineNo);
+    data.append("inspectionDate", inspectionDate);
+    data.append("mfgId", carData.mfgId);
+    data.append("carId", carData.carId);
+    data.append("varientId", carData.varientId);
+    data.append("engineDisplacement", carData.engineDisplacement);
+    data.append("model", carData.model);
+    data.append("cplc", carData.cplc);
+    data.append("buyingCode", carData.buyingCode);
+    data.append("NoOfOwners", carData.NoOfOwners);
+    data.append("transmissionType", carData.transmissionType);
+    data.append("mileage", carData.mileage);
+    data.append("registrationCity", carData.registrationCity);
+    data.append("FuelType", carData.FuelType);
+    data.append("color", carData.color);
     data.append("carPic", {
       uri: selectedImage,
       name: selectedImageName,
       type: "image/jpeg",
     });
-    data.append("status", "draft");
-
+    data.append("status", carData.status);
 
     try {
       setLoading(true);
@@ -94,18 +83,15 @@ const CarFiles = ({ navigation }) => {
         headers: headers,
       });
 
-      
       console.log("Response:", response.data);
-      
+
       setLoading(false);
       navigation.navigate("Home");
     } catch (error) {
       setLoading(false);
       console.error("Error:", error);
-      
     }
   };
-
 
   return (
     <AppScreen>
@@ -125,7 +111,7 @@ const CarFiles = ({ navigation }) => {
         Uploads
       </InspectionHeader>
       <View style={styles.UploadScreenContainer}>
-      <AppImagePicker
+        <AppImagePicker
           onImageSelected={setSelectedImage}
           onSelectedImageName={setSelectedImageName}
         />
