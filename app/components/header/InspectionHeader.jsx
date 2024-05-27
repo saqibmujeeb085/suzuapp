@@ -10,9 +10,6 @@ const InspectionHeader = ({ rightBtn = "Skip", onPress, children }) => {
         <MaterialCommunityIcons name="arrow-left" size={15} color={"#000000"} />
       </TouchableOpacity>
       <AppText fontSize={12}>{children}</AppText>
-      <TouchableOpacity activeOpacity={0.6}>
-        <AppText fontSize={10}>{rightBtn}</AppText>
-      </TouchableOpacity>
     </View>
   );
 };

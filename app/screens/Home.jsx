@@ -15,7 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [userData, setUserData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
 
@@ -149,6 +149,7 @@ const Home = () => {
               date={item?.inspectionDate}
               carImage={item?.carPic}
               rank={item?.rank}
+              onPress={() => navigation.navigate("SingleCar", { id: item?.id })}
             />
           )}
         />

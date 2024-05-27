@@ -5,6 +5,7 @@ import BottomTabNavigation from "./BottonTabNavigation";
 import AuthNavigator from "./AuthNavigator";
 import InspectionBoardNavigation from "./InspectionBoardNavigation";
 import { AuthContext } from "../context/authContext";
+import SingleCarInfo from "../screens/singleCarInfo/SingleCarInfo";
 
 const Stack = createStackNavigator();
 const FeedNavigation = () => {
@@ -23,6 +24,7 @@ const FeedNavigation = () => {
             name="Inspection"
             component={InspectionBoardNavigation}
           />
+          <Stack.Screen name="SingleCar" component={SingleCarInfo} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthNavigator} />

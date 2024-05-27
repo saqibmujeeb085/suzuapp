@@ -1,11 +1,4 @@
-import {
-  FlatList,
-  Image,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import AppScreen from "../components/screen/Screen";
 import InspectionCard from "../components/card/InspectionCard";
@@ -16,7 +9,6 @@ import DraftInspectionCard from "../components/card/DraftInspectionCard";
 
 const Drafts = () => {
   const [userData] = useContext(AuthContext);
-
   const [inspectedCar, setInspectedCar] = useState([]);
 
   useEffect(() => {
@@ -35,7 +27,7 @@ const Drafts = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [inspectedCar]);
+  }, []);
 
   return (
     <AppScreen>
