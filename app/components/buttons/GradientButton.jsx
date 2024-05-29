@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   gredientButton: {
     shadowColor: "#00000050",
     elevation: 10,
-    backgroundColor: "white",
     borderWidth: 0,
     paddingVertical: 20,
     borderRadius: 5,

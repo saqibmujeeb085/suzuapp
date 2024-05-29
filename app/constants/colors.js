@@ -4,7 +4,7 @@ export const colors = {
 
   //Background Colors
   whiteBg: "#FFFFFF",
-  ligtGreyBg: "#F4F4F4",
+  ligtGreyBg: "#F1F1F1",
 
   // Fonts Colors
   fontBlack: "#323232",

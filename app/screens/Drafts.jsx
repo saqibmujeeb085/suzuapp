@@ -1,15 +1,16 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import AppScreen from "../components/screen/Screen";
-import InspectionCard from "../components/card/InspectionCard";
 import AppText from "../components/text/Text";
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
 import DraftInspectionCard from "../components/card/DraftInspectionCard";
 
-const Drafts = () => {
+const Drafts = ({ navigation }) => {
   const [userData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
+
+  console.log(inspectedCar);
 
   useEffect(() => {
     let config = {
@@ -54,6 +55,9 @@ const Drafts = () => {
               model={item?.model}
               date={item?.inspectionDate}
               carImage={item?.carPic}
+              onPress={() =>
+                navigation.navigate("DraftSingleCar", { id: item?.id })
+              }
             />
           )}
         />

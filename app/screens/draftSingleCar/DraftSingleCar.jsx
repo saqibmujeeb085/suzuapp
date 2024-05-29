@@ -12,8 +12,11 @@ import AppText from "../../components/text/Text";
 import { mainStyles } from "../../constants/style";
 import InspectionHeader from "../../components/header/InspectionHeader";
 import { colors } from "../../constants/colors";
+import GradientButton from "../../components/buttons/GradientButton";
+import DeleteButton from "../../components/buttons/DeleteButton";
+import { AntDesign } from "@expo/vector-icons";
 
-const SingleCarInfo = ({ route, navigation }) => {
+const DraftSingleCar = ({ route, navigation }) => {
   const { id } = route.params || {}; // Add a default empty object to avoid destructuring error
 
   const [carInfo, setCarInfo] = useState(null);
@@ -32,7 +35,7 @@ const SingleCarInfo = ({ route, navigation }) => {
     const config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `/auth/get_singlecarinfos.php?id=${id}`,
+      url: `/auth/get_singledraftcarinfos.php?id=${id}`,
       headers: {},
     };
 
@@ -60,10 +63,14 @@ const SingleCarInfo = ({ route, navigation }) => {
     );
   }
 
+  const DeleteInspection = () => {
+    navigation.navigate("Draft");
+  };
+
   return (
     <AppScreen>
       <InspectionHeader onPress={() => navigation.goBack()}>
-        Car Details
+        Draft Car Details
       </InspectionHeader>
       <ScrollView contentContainerStyle={styles.container}>
         <Image
@@ -261,12 +268,18 @@ const SingleCarInfo = ({ route, navigation }) => {
             </AppText>
           </View>
         </View>
+        <View style={styles.ActionButtons}>
+          <GradientButton>Save ANd Start Rating</GradientButton>
+          <DeleteButton onPress={DeleteInspection}>
+            <AntDesign name={"delete"} color={colors.fontRed} size={20} />
+          </DeleteButton>
+        </View>
       </ScrollView>
     </AppScreen>
   );
 };
 
-export default SingleCarInfo;
+export default DraftSingleCar;
 
 const styles = StyleSheet.create({
   contentContainer: {
@@ -296,5 +309,13 @@ const styles = StyleSheet.create({
   },
   infoValue: {
     flexShrink: 1,
+  },
+  ActionButtons: {
+    flexDirection: "row",
+    width: "100%",
+    gap: 10,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginTop: 20,
   },
 });

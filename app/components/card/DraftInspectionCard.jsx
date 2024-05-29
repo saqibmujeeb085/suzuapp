@@ -13,6 +13,7 @@ const DraftInspectionCard = ({
   date,
   customer,
   carImage,
+  onPress,
 }) => {
   const deleteCar = () => {
     let config = {
@@ -59,18 +60,15 @@ const DraftInspectionCard = ({
       </View>
 
       <View style={styles.actionButtons}>
-        <TouchableOpacity onPress={deleteCar} activeOpacity={0.6}>
+        <TouchableOpacity
+          style={styles.IconButton}
+          onPress={onPress}
+          activeOpacity={0.6}
+        >
           <MaterialCommunityIcons
             name={"eye-outline"}
-            size={18}
-            color={colors.blueColor}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.6}>
-          <MaterialCommunityIcons
-            name={"delete-outline"}
             size={20}
-            color={colors.fontRed}
+            color={colors.blueColor}
           />
         </TouchableOpacity>
       </View>
@@ -112,5 +110,13 @@ const styles = StyleSheet.create({
     gap: 10,
     justifyContent: "center",
     alignItems: "center",
+    borderLeftWidth: 1,
+    borderLeftColor: colors.ligtGreyBg,
+    height: "100%",
+    paddingRight: 10,
+    paddingLeft: 25,
+  },
+  IconButton: {
+    marginRight: 10,
   },
 });

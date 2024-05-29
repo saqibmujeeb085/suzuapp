@@ -3,7 +3,7 @@ import React from "react";
 import { mainStyles } from "../../constants/style";
 
 function AppText({
-  fontSize = 10,
+  fontSize,
   fontFamily = mainStyles.appFontRegular,
   numberOfLines,
   ellipsizeMode,
