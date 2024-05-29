@@ -1,19 +1,18 @@
 import { FlatList, StyleSheet, View } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import AppScreen from "../components/screen/Screen";
 import AppText from "../components/text/Text";
 import axios from "axios";
 import { AuthContext } from "../context/authContext";
 import DraftInspectionCard from "../components/card/DraftInspectionCard";
+import { useFocusEffect } from "@react-navigation/native";
 
 const Drafts = ({ navigation }) => {
   const [userData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
 
-  console.log(inspectedCar);
-
-  useEffect(() => {
-    let config = {
+  const fetchInspectedCars = useCallback(() => {
+    const config = {
       method: "get",
       maxBodyLength: Infinity,
       url: `/auth/get_carinfosdraft.php?duserId=${userData.user.duserid}`,
@@ -26,9 +25,15 @@ const Drafts = ({ navigation }) => {
         setInspectedCar(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
-  }, []);
+  }, [userData]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchInspectedCars();
+    }, [fetchInspectedCars])
+  );
 
   return (
     <AppScreen>
@@ -46,7 +51,7 @@ const Drafts = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 30 }}
           data={inspectedCar}
-          keyExtractor={inspectedCar.id}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <DraftInspectionCard
               carId={item?.id}

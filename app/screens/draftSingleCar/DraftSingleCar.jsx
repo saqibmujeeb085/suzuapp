@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Image,
   ScrollView,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -22,8 +23,6 @@ const DraftSingleCar = ({ route, navigation }) => {
   const [carInfo, setCarInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  console.log(carInfo);
 
   useEffect(() => {
     if (!id) {
@@ -51,6 +50,25 @@ const DraftSingleCar = ({ route, navigation }) => {
       });
   }, [id]);
 
+  const handleDelete = () => {
+    const config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://saadurrehman.com/inspectionapp/apis/auth/delete-car.php?id=${id}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(response.data);
+        navigation.navigate("Drafts"); // Navigate back to Drafts
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -62,11 +80,6 @@ const DraftSingleCar = ({ route, navigation }) => {
       </View>
     );
   }
-
-  const DeleteInspection = () => {
-    navigation.navigate("Draft");
-  };
-
   return (
     <AppScreen>
       <InspectionHeader onPress={() => navigation.goBack()}>
@@ -265,12 +278,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               }}
             >
               {carInfo.rank}
+              {carInfo.status}
             </AppText>
           </View>
         </View>
         <View style={styles.ActionButtons}>
           <GradientButton>Save ANd Start Rating</GradientButton>
-          <DeleteButton onPress={DeleteInspection}>
+          <DeleteButton onPress={handleDelete}>
             <AntDesign name={"delete"} color={colors.fontRed} size={20} />
           </DeleteButton>
         </View>

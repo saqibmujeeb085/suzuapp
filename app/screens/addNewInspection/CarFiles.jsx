@@ -102,8 +102,9 @@ const CarFiles = ({ navigation }) => {
           icon
           heading={"Customer ID: 0KD560PLF"}
           text={"You have to complete the inspection in 20 minutes."}
-          pbtn={"Start Inspection Now"}
-          pbtnPress={() => navigation.navigate("Inspection")}
+          pbtn={loading ? "Loading..." : "Start Inspection Now"}
+          disabled={loading}
+          pbtnPress={() => postCarDetails(selectedImage, selectedImageName)}
           sbtn={"Save for later"}
         />
       )}
@@ -117,7 +118,7 @@ const CarFiles = ({ navigation }) => {
         />
         <View style={styles.formButton}>
           <GradientButton
-            onPress={() => postCarDetails(selectedImage, selectedImageName)}
+            onPress={ShowModal}
             disabled={loading}
           >
             {loading ? "Loading..." : "Start Inspection"}
