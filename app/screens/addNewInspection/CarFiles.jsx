@@ -41,55 +41,110 @@ const CarFiles = ({ navigation }) => {
 
   const postCarDetails = async (selectedImage, selectedImageName) => {
     currentDateAndTime();
-    setCarData((prevData) => ({
-      ...prevData,
-      inspectionDate: currentDateTime,
-    }));
 
-    let data = new FormData();
-    data.append("dealershipId", carData.dealershipId);
-    data.append("duserId", carData.duserId);
-    data.append("customerID", carData.customerID);
-    data.append("registrationNo", carData.registrationNo);
-    data.append("chasisNo", carData.chasisNo);
-    data.append("EngineNo", carData.EngineNo);
-    data.append("inspectionDate", inspectionDate);
-    data.append("mfgId", carData.mfgId);
-    data.append("carId", carData.carId);
-    data.append("varientId", carData.varientId);
-    data.append("engineDisplacement", carData.engineDisplacement);
-    data.append("model", carData.model);
-    data.append("cplc", carData.cplc);
-    data.append("buyingCode", carData.buyingCode);
-    data.append("NoOfOwners", carData.NoOfOwners);
-    data.append("transmissionType", carData.transmissionType);
-    data.append("mileage", carData.mileage);
-    data.append("registrationCity", carData.registrationCity);
-    data.append("FuelType", carData.FuelType);
-    data.append("color", carData.color);
-    data.append("carPic", {
-      uri: selectedImage,
-      name: selectedImageName,
-      type: "image/jpeg",
-    });
-    data.append("status", carData.status);
-
-    try {
-      setLoading(true);
-      const headers = {
-        "Content-Type": "multipart/form-data",
-      };
-      const response = await axios.post("/auth/addcarInfo.php", data, {
-        headers: headers,
+    if (selectedImage !== "") {
+      let data = new FormData();
+      data.append("dealershipId", carData.dealershipId);
+      data.append("duserId", carData.duserId);
+      data.append("customerID", carData.customerID);
+      data.append("registrationNo", carData.registrationNo);
+      data.append("chasisNo", carData.chasisNo);
+      data.append("EngineNo", carData.EngineNo);
+      data.append("inspectionDate", currentDateTime);
+      data.append("mfgId", carData.mfgId);
+      data.append("carId", carData.carId);
+      data.append("varientId", carData.varientId);
+      data.append("engineDisplacement", carData.engineDisplacement);
+      data.append("model", carData.model);
+      data.append("cplc", carData.cplc);
+      data.append("buyingCode", carData.buyingCode);
+      data.append("NoOfOwners", carData.NoOfOwners);
+      data.append("transmissionType", carData.transmissionType);
+      data.append("mileage", carData.mileage);
+      data.append("registrationCity", carData.registrationCity);
+      data.append("FuelType", carData.FuelType);
+      data.append("color", carData.color);
+      data.append("carPic", {
+        uri: selectedImage,
+        name: selectedImageName,
+        type: "image/jpeg",
       });
+      data.append("status", carData.status);
 
-      console.log("Response:", response.data);
+      try {
+        setLoading(true);
+        const headers = {
+          "Content-Type": "multipart/form-data",
+        };
+        const response = await axios.post("/auth/addcarInfo.php", data, {
+          headers: headers,
+        });
 
-      setLoading(false);
-      navigation.navigate("Home");
-    } catch (error) {
-      setLoading(false);
-      console.error("Error:", error);
+        console.log("Response:", response.data);
+
+        setLoading(false);
+        navigation.navigate("InspectionBoard", {
+          params: response.data.last_id,
+        });
+      } catch (error) {
+        setLoading(false);
+        console.error("Error:", error);
+      }
+    } else {
+      alert("Please Select Image First");
+    }
+  };
+
+  const postCarDetailsAsDraft = async (selectedImage, selectedImageName) => {
+    currentDateAndTime();
+    if (selectedImage !== "") {
+      let data = new FormData();
+      data.append("dealershipId", carData.dealershipId);
+      data.append("duserId", carData.duserId);
+      data.append("customerID", carData.customerID);
+      data.append("registrationNo", carData.registrationNo);
+      data.append("chasisNo", carData.chasisNo);
+      data.append("EngineNo", carData.EngineNo);
+      data.append("inspectionDate", currentDateTime);
+      data.append("mfgId", carData.mfgId);
+      data.append("carId", carData.carId);
+      data.append("varientId", carData.varientId);
+      data.append("engineDisplacement", carData.engineDisplacement);
+      data.append("model", carData.model);
+      data.append("cplc", carData.cplc);
+      data.append("buyingCode", carData.buyingCode);
+      data.append("NoOfOwners", carData.NoOfOwners);
+      data.append("transmissionType", carData.transmissionType);
+      data.append("mileage", carData.mileage);
+      data.append("registrationCity", carData.registrationCity);
+      data.append("FuelType", carData.FuelType);
+      data.append("color", carData.color);
+      data.append("carPic", {
+        uri: selectedImage,
+        name: selectedImageName,
+        type: "image/jpeg",
+      });
+      data.append("status", carData.status);
+
+      try {
+        setLoading(true);
+        const headers = {
+          "Content-Type": "multipart/form-data",
+        };
+        const response = await axios.post("/auth/addcarInfo.php", data, {
+          headers: headers,
+        });
+
+        console.log("Response:", response.data);
+
+        setLoading(false);
+        navigation.navigate("Home");
+      } catch (error) {
+        setLoading(false);
+        console.error("Error:", error);
+      }
+    } else {
+      alert("Please Select Image First");
     }
   };
 
@@ -106,6 +161,9 @@ const CarFiles = ({ navigation }) => {
           disabled={loading}
           pbtnPress={() => postCarDetails(selectedImage, selectedImageName)}
           sbtn={"Save for later"}
+          sbtnPress={() =>
+            postCarDetailsAsDraft(selectedImage, selectedImageName)
+          }
         />
       )}
       <InspectionHeader onPress={() => navigation.goBack()}>
@@ -117,10 +175,7 @@ const CarFiles = ({ navigation }) => {
           onSelectedImageName={setSelectedImageName}
         />
         <View style={styles.formButton}>
-          <GradientButton
-            onPress={ShowModal}
-            disabled={loading}
-          >
+          <GradientButton onPress={ShowModal} disabled={loading}>
             {loading ? "Loading..." : "Start Inspection"}
           </GradientButton>
         </View>

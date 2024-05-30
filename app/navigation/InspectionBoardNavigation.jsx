@@ -11,7 +11,6 @@ const InspectionBoardNavigation = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="InspectionBoard" component={InspectionBoard} />
       <Stack.Screen name="SingleInspection" component={SingleInspection} />
-      <Stack.Screen name="SignCarDetails" component={SigngleCarPages} />
     </Stack.Navigator>
   );
 };

@@ -168,19 +168,33 @@ const CarBodyDetails = ({ navigation }) => {
   };
 
   const addCarDetails = () => {
-    setCarData((prevData) => ({
-      ...prevData,
-      chasisNo: chasisNo,
-      EngineNo: engineNo,
-      engineDisplacement: engineCapacity,
-      transmissionType: transmissionsType,
-      mileage: milage,
-      registrationCity: registrationCity,
-      FuelType: fuelType,
-      registrationNo: registrationNo,
-      NoOfOwners: owner,
-    }));
-    navigation.navigate("CarFiles");
+    if (
+      chasisNo !== "" &&
+      engineNo !== "" &&
+      engineCapacity !== "" &&
+      transmissionsType !== "" &&
+      milage !== "" &&
+      registrationCity !== "" &&
+      fuelType !== "" &&
+      registrationNo !== "" &&
+      owner !== ""
+    ) {
+      setCarData((prevData) => ({
+        ...prevData,
+        chasisNo: chasisNo,
+        EngineNo: engineNo,
+        engineDisplacement: engineCapacity,
+        transmissionType: transmissionsType,
+        mileage: milage,
+        registrationCity: registrationCity,
+        FuelType: fuelType,
+        registrationNo: registrationNo,
+        NoOfOwners: owner,
+      }));
+      navigation.navigate("CarFiles");
+    } else {
+      alert("Please Select and Fill All The Fields");
+    }
   };
 
   return (

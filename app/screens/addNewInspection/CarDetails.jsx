@@ -193,19 +193,29 @@ const CarDetails = ({ navigation }) => {
   };
 
   const addCarDetails = () => {
-    setCarData((prevData) => ({
-      ...prevData,
+    if (
+      manufacturer !== "" &&
+      carModel !== "" &&
+      carYear !== "" &&
+      carColor !== "" &&
+      cplc !== ""
+    ) {
+      setCarData((prevData) => ({
+        ...prevData,
 
-      dealershipId: userData.user.dId,
-      duserId: userData.user.duserid,
-      mfgId: manufacturer,
-      carId: carModel,
-      varientId: carVarient,
-      model: carYear,
-      color: carColor,
-      cplc: cplc,
-    }));
-    navigation.navigate("CarBodyDetails");
+        dealershipId: userData.user.dId,
+        duserId: userData.user.duserid,
+        mfgId: manufacturer,
+        carId: carModel,
+        varientId: carVarient,
+        model: carYear,
+        color: carColor,
+        cplc: cplc,
+      }));
+      navigation.navigate("CarBodyDetails");
+    } else {
+      alert("Please Select and Fill All The Fields");
+    }
   };
 
   return (

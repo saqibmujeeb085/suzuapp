@@ -46,12 +46,12 @@ const SingleInspection = ({ navigation }) => {
       {
         id: "1",
         label: "Yes",
-        value: true,
+        value: yes,
       },
       {
         id: "2",
         label: "No",
-        value: false,
+        value: No,
       },
     ],
     []

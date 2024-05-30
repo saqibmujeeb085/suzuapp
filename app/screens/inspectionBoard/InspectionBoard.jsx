@@ -3,18 +3,44 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
+  ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppScreen from "../../components/screen/Screen";
 import AppText from "../../components/text/Text";
 import IconButton from "../../components/buttons/IconButton";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import GradientButton from "../../components/buttons/GradientButton";
 import ProcessModal from "../../components/modals/ProcessModal";
+import InspectionBoardCard from "../../components/card/InspectionBoardCard";
+import axios from "axios";
 
-const InspectionBoard = ({ navigation }) => {
+const InspectionBoard = ({ navigation, route }) => {
+  const { id } = route.params || {};
+
+  const [categoriesList, setCategoriesList] = useState([]);
+
+  console.log(categoriesList.length);
+
+  useEffect(() => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "https://saadurrehman.com/inspectionapp/apis/auth/get_category.php",
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setCategoriesList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const inpection = () => {
     navigation.navigate("SingleInspection");
   };
@@ -22,6 +48,7 @@ const InspectionBoard = ({ navigation }) => {
   const ShowModal = () => {
     setShow(!show);
   };
+
   return (
     <AppScreen>
       {show && (
@@ -32,246 +59,112 @@ const InspectionBoard = ({ navigation }) => {
           heading={"Customer ID: 0KD560PLF"}
           text={"If you cancel inspection, customer will be removed."}
           pbtn={"Continue Inspection"}
-          pbtnPress={setShow}
-          sbtnPress={() => navigation.navigate("home")}
+          pbtnPress={ShowModal}
           sbtn={"Save for later"}
+          sbtnPress={() => navigation.navigate("home")}
           sbtnColor={"#D20000"}
         />
       )}
-      <View style={styles.headingContainer}>
-        <AppText fontSize={12}>Inspection Board</AppText>
-      </View>
-      <ImageBackground
-        style={styles.customerSummarycontainerbackgroundImage}
-        source={require("../../assets/componentsImages/summaryBackground.png")}
-      >
-        <View style={styles.customerSummarycontainer}>
-          <View style={styles.customerDetailsAndLogout}>
-            <View style={styles.customerDetails}>
-              <AppText color={"white"} fontSize={12}>
-                Suzuki Mehran
-              </AppText>
-              <AppText color={"#BBBBBB"} fontSize={10}>
-                Customer: Saad Rehman
+      <ScrollView>
+        <View style={styles.headingContainer}>
+          <AppText fontSize={12}>Inspection Board</AppText>
+        </View>
+        <ImageBackground
+          style={styles.customerSummarycontainerbackgroundImage}
+          source={require("../../assets/componentsImages/summaryBackground.png")}
+        >
+          <View style={styles.customerSummarycontainer}>
+            <View style={styles.customerDetailsAndLogout}>
+              <View style={styles.customerDetails}>
+                <AppText color={"white"} fontSize={12}>
+                  Suzuki Mehran
+                </AppText>
+                <AppText color={"#BBBBBB"} fontSize={10}>
+                  Customer: Saad Rehman
+                </AppText>
+              </View>
+              <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={() => navigation.navigate("LogIn")}
+              >
+                <View style={styles.timer}>
+                  <Image
+                    source={require("../../assets/componentsImages/timer.png")}
+                  />
+                  <View style={styles.time}>
+                    <AppText color={"white"} fontSize={8}>
+                      Time Left
+                    </AppText>
+                    <AppText color={"white"} fontSize={12}>
+                      19:25
+                    </AppText>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.breakLine} />
+            <View style={styles.summaryContainer}>
+              <View style={styles.summaryBox}>
+                <AppText color={"#cccccc"} fontSize={10}>
+                  Mileage
+                </AppText>
+                <AppText color={"white"} fontSize={10}>
+                  133319 km
+                </AppText>
+              </View>
+              <View style={styles.summaryBox}>
+                <AppText color={"#cccccc"} fontSize={10}>
+                  Year
+                </AppText>
+                <AppText color={"white"} fontSize={10}>
+                  2004
+                </AppText>
+              </View>
+              <View style={styles.summaryBox}>
+                <AppText color={"#cccccc"} fontSize={10}>
+                  Color
+                </AppText>
+                <AppText color={"white"} fontSize={10}>
+                  True Blue
+                </AppText>
+              </View>
+              <View style={styles.summaryBox}>
+                <AppText color={"#cccccc"} fontSize={10}>
+                  Engine
+                </AppText>
+                <AppText color={"white"} fontSize={10}>
+                  996 cc
+                </AppText>
+              </View>
+            </View>
+          </View>
+        </ImageBackground>
+        <View style={styles.InspectionBoardContainer}>
+          <View style={styles.headingAndButton}>
+            <View style={styles.headingWithIcon}>
+              <AppText fontSize={12} color={"#323232"}>
+                Inspection Details
               </AppText>
             </View>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => navigation.navigate("LogIn")}
+            <IconButton
+              onPress={ShowModal}
+              icon={"cancel"}
+              color={"#D70000"}
+              fontSize={12}
             >
-              <View style={styles.timer}>
-                <Image
-                  source={require("../../assets/componentsImages/timer.png")}
-                />
-                <View style={styles.time}>
-                  <AppText color={"white"} fontSize={8}>
-                    Time Left
-                  </AppText>
-                  <AppText color={"white"} fontSize={12}>
-                    19:25
-                  </AppText>
-                </View>
-              </View>
-            </TouchableOpacity>
+              Discard
+            </IconButton>
           </View>
-          <View style={styles.breakLine} />
-          <View style={styles.summaryContainer}>
-            <View style={styles.summaryBox}>
-              <AppText color={"#cccccc"} fontSize={10}>
-                Mileage
-              </AppText>
-              <AppText color={"white"} fontSize={10}>
-                133319 km
-              </AppText>
-            </View>
-            <View style={styles.summaryBox}>
-              <AppText color={"#cccccc"} fontSize={10}>
-                Year
-              </AppText>
-              <AppText color={"white"} fontSize={10}>
-                2004
-              </AppText>
-            </View>
-            <View style={styles.summaryBox}>
-              <AppText color={"#cccccc"} fontSize={10}>
-                Color
-              </AppText>
-              <AppText color={"white"} fontSize={10}>
-                True Blue
-              </AppText>
-            </View>
-            <View style={styles.summaryBox}>
-              <AppText color={"#cccccc"} fontSize={10}>
-                Engine
-              </AppText>
-              <AppText color={"white"} fontSize={10}>
-                996 cc
-              </AppText>
+          <View style={styles.inscpectionCardsBox}>
+            {categoriesList.map((item) => (
+              <InspectionBoardCard key={item.id} name={item.category} />
+            ))}
+            <View style={styles.inscpectionButton}>
+              <GradientButton>Submit Inspection Report</GradientButton>
             </View>
           </View>
         </View>
-      </ImageBackground>
-      <View style={styles.InspectionBoardContainer}>
-        <View style={styles.headingAndButton}>
-          <View style={styles.headingWithIcon}>
-            <AppText fontSize={12} color={"#323232"}>
-              Inspection Details
-            </AppText>
-          </View>
-          <IconButton
-            onPress={ShowModal}
-            icon={"cancel"}
-            color={"#D70000"}
-            fontSize={12}
-          >
-            Discard
-          </IconButton>
-        </View>
-        <View style={styles.inscpectionCardsBox}>
-          <TouchableWithoutFeedback onPress={inpection}>
-            <View style={styles.inscpectionCard}>
-              <View style={styles.inpsectionContent}>
-                <MaterialCommunityIcons
-                  name="steering"
-                  color={"#1d1d1d"}
-                  size={20}
-                />
-                <View style={styles.inpectionContentText}>
-                  <AppText color={"#1d1d1d"} fontSize={10}>
-                    Test drive
-                  </AppText>
-                  <AppText color={"#BBBBBB"} fontSize={8}>
-                    Click to Edit
-                  </AppText>
-                </View>
-              </View>
-              <View style={styles.inpsectionRating}>
-                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
-                  Overall Rating
-                </AppText>
-                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
-                  0.0/10
-                </AppText>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-          {/* ////////////////////////////////////////////// */}
-          <TouchableWithoutFeedback onPress={inpection}>
-            <View style={styles.inscpectionCard}>
-              <View style={styles.inpsectionContent}>
-                <MaterialCommunityIcons
-                  name="car"
-                  color={"#1d1d1d"}
-                  size={20}
-                />
-                <View style={styles.inpectionContentText}>
-                  <AppText color={"#1d1d1d"} fontSize={10}>
-                    Exterior
-                  </AppText>
-                  <AppText color={"#BBBBBB"} fontSize={8}>
-                    Click to Edit
-                  </AppText>
-                </View>
-              </View>
-              <View style={styles.inpsectionRating}>
-                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
-                  Overall Rating
-                </AppText>
-                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
-                  0.0/10
-                </AppText>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-          {/* ////////////////////////////////////////////// */}
-          <TouchableWithoutFeedback onPress={inpection}>
-            <View style={styles.inscpectionCard}>
-              <View style={styles.inpsectionContent}>
-                <MaterialCommunityIcons
-                  name="car-child-seat"
-                  color={"#1d1d1d"}
-                  size={20}
-                />
-                <View style={styles.inpectionContentText}>
-                  <AppText color={"#1d1d1d"} fontSize={10}>
-                    Interior
-                  </AppText>
-                  <AppText color={"#BBBBBB"} fontSize={8}>
-                    Click to Edit
-                  </AppText>
-                </View>
-              </View>
-              <View style={styles.inpsectionRating}>
-                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
-                  Overall Rating
-                </AppText>
-                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
-                  0.0/10
-                </AppText>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-          {/* ////////////////////////////////////////////// */}
-          <TouchableWithoutFeedback onPress={inpection}>
-            <View style={styles.inscpectionCard}>
-              <View style={styles.inpsectionContent}>
-                <MaterialCommunityIcons
-                  name="car-clutch"
-                  color={"#1d1d1d"}
-                  size={20}
-                />
-                <View style={styles.inpectionContentText}>
-                  <AppText color={"#1d1d1d"} fontSize={10}>
-                    Mechanical & electrical
-                  </AppText>
-                  <AppText color={"#BBBBBB"} fontSize={8}>
-                    Click to Edit
-                  </AppText>
-                </View>
-              </View>
-              <View style={styles.inpsectionRating}>
-                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
-                  Overall Rating
-                </AppText>
-                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
-                  0.0/10
-                </AppText>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-          {/* ////////////////////////////////////////////// */}
-          <TouchableWithoutFeedback onPress={inpection}>
-            <View style={styles.inscpectionCard}>
-              <View style={styles.inpsectionContent}>
-                <MaterialCommunityIcons
-                  name="tire"
-                  color={"#1d1d1d"}
-                  size={20}
-                />
-                <View style={styles.inpectionContentText}>
-                  <AppText color={"#1d1d1d"} fontSize={10}>
-                    Wheels
-                  </AppText>
-                  <AppText color={"#BBBBBB"} fontSize={8}>
-                    Click to Edit
-                  </AppText>
-                </View>
-              </View>
-              <View style={styles.inpsectionRating}>
-                <AppText color={"#BBBBBB"} fontSize={8} textAlign={"right"}>
-                  Overall Rating
-                </AppText>
-                <AppText color={"#212121"} fontSize={14} textAlign={"right"}>
-                  0.0/10
-                </AppText>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-          <View style={styles.inscpectionButton}>
-            <GradientButton>Submit Inspection Report</GradientButton>
-          </View>
-        </View>
-      </View>
+      </ScrollView>
     </AppScreen>
   );
 };
@@ -337,7 +230,6 @@ const styles = StyleSheet.create({
   inscpectionCardsBox: {
     paddingHorizontal: 20,
     marginVertical: 15,
-    gap: 10,
   },
   inscpectionCard: {
     flexDirection: "row",
@@ -351,6 +243,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
+  },
+  inpectionContentText: {
+    gap: 5,
   },
   inscpectionButton: {
     marginTop: 10,
