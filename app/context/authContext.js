@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
   });
 
   //Base URL
-  axios.defaults.baseURL = "https://saadurrehman.com/inspectionapp/apis";
+  axios.defaults.baseURL = "https://clients.echodigital.net/inspectionapp/apis";
 
   // Local Storage Initial Data
   useEffect(() => {

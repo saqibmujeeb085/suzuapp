@@ -11,6 +11,7 @@ const Drafts = ({ navigation }) => {
   const [userData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true); // Loading state
 
   // Function to fetch inspected cars data
   const fetchInspectedCars = useCallback(async () => {
@@ -18,17 +19,18 @@ const Drafts = ({ navigation }) => {
     const config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `/auth/get_carinfosdraft.php?duserId=${userData.user.duserid}`,
+      url: `auth/get_carinfosdraft.php?duserId=${userData.user.duserid}`, // Ensure the correct URL is used
       headers: {},
     };
-
     try {
       const response = await axios.request(config);
+      console.log(response.data);
       setInspectedCar(response.data);
     } catch (error) {
       console.error(error);
     } finally {
       setRefreshing(false); // Stop refreshing
+      setLoading(false); // Set loading to false after fetching data
     }
   }, [userData]);
 
@@ -38,6 +40,18 @@ const Drafts = ({ navigation }) => {
       fetchInspectedCars();
     }, [fetchInspectedCars])
   );
+
+  // Load data from state initially and clear cache
+  useEffect(() => {
+    setInspectedCar([]); // Clear the cache
+    setLoading(true); // Set loading to true
+    fetchInspectedCars(); // Fetch fresh data
+  }, []);
+
+  // Render loading indicator if data is still loading
+  if (loading) {
+    return <AppText>Loading...</AppText>;
+  }
 
   return (
     <AppScreen>
@@ -55,7 +69,6 @@ const Drafts = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 30 }}
           data={inspectedCar}
-          extraData={inspectedCar.id}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <DraftInspectionCard

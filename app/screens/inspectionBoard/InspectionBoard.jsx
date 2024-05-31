@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import AppScreen from "../../components/screen/Screen";
 import AppText from "../../components/text/Text";
 import IconButton from "../../components/buttons/IconButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import GradientButton from "../../components/buttons/GradientButton";
 import ProcessModal from "../../components/modals/ProcessModal";
 import InspectionBoardCard from "../../components/card/InspectionBoardCard";
@@ -21,13 +20,11 @@ const InspectionBoard = ({ navigation, route }) => {
 
   const [categoriesList, setCategoriesList] = useState([]);
 
-  console.log(categoriesList.length);
-
   useEffect(() => {
     let config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "https://saadurrehman.com/inspectionapp/apis/auth/get_category.php",
+      url: "/auth/get_category.php",
       headers: {},
     };
 
@@ -46,6 +43,26 @@ const InspectionBoard = ({ navigation, route }) => {
     setShow(!show);
   };
 
+  const changeStatus = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `/auth/update_carstatus.php?id=${id}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        alert("Status Changed SuccessFully");
+        navigation.navigate("Draft");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <AppScreen>
       {show && (
@@ -60,13 +77,13 @@ const InspectionBoard = ({ navigation, route }) => {
           sbtn={"Save for later"}
           sbtnPress={() => navigation.navigate("home")}
           sbtnColor={"#D20000"}
-          />
+        />
       )}
-      
-        <View style={styles.headingContainer}>
-          <AppText fontSize={12}>Inspection Board</AppText>
-        </View>
-          <ScrollView>
+
+      <View style={styles.headingContainer}>
+        <AppText fontSize={12}>Inspection Board</AppText>
+      </View>
+      <ScrollView>
         <ImageBackground
           style={styles.customerSummarycontainerbackgroundImage}
           source={require("../../assets/componentsImages/summaryBackground.png")}
@@ -81,10 +98,7 @@ const InspectionBoard = ({ navigation, route }) => {
                   Customer: Saad Rehman
                 </AppText>
               </View>
-              <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={() => navigation.navigate("LogIn")}
-              >
+              <TouchableOpacity activeOpacity={0.6} onPress={() => {}}>
                 <View style={styles.timer}>
                   <Image
                     source={require("../../assets/componentsImages/timer.png")}
@@ -155,10 +169,22 @@ const InspectionBoard = ({ navigation, route }) => {
           </View>
           <View style={styles.inscpectionCardsBox}>
             {categoriesList.map((item) => (
-              <InspectionBoardCard key={item.id} name={item.category} onPress={()=>navigation.navigate("SingleInspection", {carid : id, catid: item.id, catName: item.category})} />
+              <InspectionBoardCard
+                key={item.id}
+                name={item.category}
+                onPress={() =>
+                  navigation.navigate("SingleInspection", {
+                    carid: id,
+                    catid: item.id,
+                    catName: item.category,
+                  })
+                }
+              />
             ))}
             <View style={styles.inscpectionButton}>
-              <GradientButton>Submit Inspection Report</GradientButton>
+              <GradientButton onPress={changeStatus}>
+                Submit Inspection Report
+              </GradientButton>
             </View>
           </View>
         </View>

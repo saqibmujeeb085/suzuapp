@@ -55,7 +55,7 @@ const ProcessModal = ({
               <GradientButton size={10} onPress={pbtnPress}>
                 {pbtn}
               </GradientButton>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={sbtnPress}>
                 <AppText
                   textAlign={"center"}
                   color={sbtnColor}

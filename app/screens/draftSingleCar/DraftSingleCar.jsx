@@ -53,7 +53,7 @@ const DraftSingleCar = ({ route, navigation }) => {
     const config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: `https://saadurrehman.com/inspectionapp/apis/auth/delete-car.php?id=${id}`,
+      url: `/auth/delete-car.php?id=${id}`,
       headers: {},
     };
 
@@ -285,7 +285,7 @@ const DraftSingleCar = ({ route, navigation }) => {
           <GradientButton
             onPress={() =>
               navigation.navigate("InspectionBoard", {
-                params: carInfo.id,
+                id: id,
               })
             }
           >

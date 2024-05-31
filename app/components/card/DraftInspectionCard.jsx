@@ -32,8 +32,6 @@ const DraftInspectionCard = ({
         console.log(error);
       });
   };
-
-  console.log(carImage);
   return (
     <View style={styles.Container}>
       <View style={styles.inspectionDestailsContainer}>

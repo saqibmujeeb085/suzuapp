@@ -84,7 +84,7 @@ const CarFiles = ({ navigation }) => {
 
         setLoading(false);
         navigation.navigate("InspectionBoard", {
-          params: response.data.last_id,
+          id: response.data.last_id,
         });
       } catch (error) {
         setLoading(false);
@@ -138,7 +138,7 @@ const CarFiles = ({ navigation }) => {
         console.log("Response:", response.data);
 
         setLoading(false);
-        navigation.navigate("Home");
+        navigation.navigate("Draft");
       } catch (error) {
         setLoading(false);
         console.error("Error:", error);
