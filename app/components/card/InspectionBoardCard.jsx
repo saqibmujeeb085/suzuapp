@@ -4,9 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppText from "../text/Text";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-const InspectionBoardCard = ({ name }) => {
+const InspectionBoardCard = ({ name, onPress }) => {
   return (
-    <TouchableWithoutFeedback style={{ marginBottom: 10 }} onPress={() => {}}>
+    <TouchableWithoutFeedback style={{ marginBottom: 10 }} onPress={onPress}>
       <View style={styles.inscpectionCard}>
         <View style={styles.inpsectionContent}>
           <MaterialCommunityIcons

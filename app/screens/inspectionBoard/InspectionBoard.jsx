@@ -41,9 +41,6 @@ const InspectionBoard = ({ navigation, route }) => {
       });
   }, []);
 
-  const inpection = () => {
-    navigation.navigate("SingleInspection");
-  };
   const [show, setShow] = useState(false);
   const ShowModal = () => {
     setShow(!show);
@@ -63,12 +60,13 @@ const InspectionBoard = ({ navigation, route }) => {
           sbtn={"Save for later"}
           sbtnPress={() => navigation.navigate("home")}
           sbtnColor={"#D20000"}
-        />
+          />
       )}
-      <ScrollView>
+      
         <View style={styles.headingContainer}>
           <AppText fontSize={12}>Inspection Board</AppText>
         </View>
+          <ScrollView>
         <ImageBackground
           style={styles.customerSummarycontainerbackgroundImage}
           source={require("../../assets/componentsImages/summaryBackground.png")}
@@ -157,7 +155,7 @@ const InspectionBoard = ({ navigation, route }) => {
           </View>
           <View style={styles.inscpectionCardsBox}>
             {categoriesList.map((item) => (
-              <InspectionBoardCard key={item.id} name={item.category} />
+              <InspectionBoardCard key={item.id} name={item.category} onPress={()=>navigation.navigate("SingleInspection", {carid : id, catid: item.id, catName: item.category})} />
             ))}
             <View style={styles.inscpectionButton}>
               <GradientButton>Submit Inspection Report</GradientButton>
