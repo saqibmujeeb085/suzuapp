@@ -11,11 +11,11 @@ import InspectionCard from "../components/card/InspectionCard";
 const Reports = () => {
   return (
     <AppScreen>
-    <View style={styles.reportSearchBox}>
+    {/* <View style={styles.reportSearchBox}>
       <AppText textAlign={'center'} fontSize={12} color={"#1d1d1d"} >Search Inspection Reports</AppText>
       <Search />
       </View>
-      {/* //////////////// */}
+    
       <View style={styles.searchDataContainer}>
         <View style={styles.headingAndButton}>
           
@@ -44,7 +44,7 @@ const Reports = () => {
             />
           )}
         />
-      </View>
+      </View> */}
     </AppScreen>
 
   );

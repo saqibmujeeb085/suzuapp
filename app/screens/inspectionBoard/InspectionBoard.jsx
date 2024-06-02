@@ -63,6 +63,11 @@ const InspectionBoard = ({ navigation, route }) => {
       });
   };
 
+  const discard = () => {
+    navigation.navigate("Home")
+  }
+
+
   return (
     <AppScreen>
       {show && (
@@ -75,7 +80,7 @@ const InspectionBoard = ({ navigation, route }) => {
           pbtn={"Continue Inspection"}
           pbtnPress={ShowModal}
           sbtn={"Save for later"}
-          sbtnPress={() => navigation.navigate("home")}
+          sbtnPress={discard}
           sbtnColor={"#D20000"}
         />
       )}

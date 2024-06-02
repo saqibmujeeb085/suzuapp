@@ -60,7 +60,6 @@ const ProcessModal = ({
                   textAlign={"center"}
                   color={sbtnColor}
                   fontSize={12}
-                  onPress={sbtnPress}
                 >
                   {sbtn}
                 </AppText>

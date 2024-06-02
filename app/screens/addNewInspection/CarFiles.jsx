@@ -42,7 +42,7 @@ const CarFiles = ({ navigation }) => {
   const postCarDetails = async (selectedImage, selectedImageName) => {
     currentDateAndTime();
 
-    if (selectedImage !== "") {
+    if (selectedImageName !== "") {
       let data = new FormData();
       data.append("dealershipId", carData.dealershipId);
       data.append("duserId", carData.duserId);

@@ -7,6 +7,7 @@ import InspectionHeader from "../../components/header/InspectionHeader";
 import Dropdown from "../../components/formFields/Dropdown";
 import axios from "axios";
 import { InspecteCarContext } from "../../context/newInspectionContext";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CarBodyDetails = ({ navigation }) => {
   const [carData, setCarData] = useContext(InspecteCarContext);
@@ -202,6 +203,7 @@ const CarBodyDetails = ({ navigation }) => {
       <InspectionHeader onPress={() => navigation.goBack()}>
         Car Details
       </InspectionHeader>
+      <KeyboardAwareScrollView>
       <View style={styles.InspectionformContainer}>
         <Dropdown
           DropItems="Registration City"
@@ -265,6 +267,7 @@ const CarBodyDetails = ({ navigation }) => {
           <GradientButton onPress={addCarDetails}>Next</GradientButton>
         </View>
       </View>
+      </KeyboardAwareScrollView>
     </AppScreen>
   );
 };

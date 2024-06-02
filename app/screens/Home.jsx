@@ -18,6 +18,10 @@ import axios from "axios";
 const Home = ({ navigation }) => {
   const [userData, setUserData] = useContext(AuthContext);
   const [inspectedCar, setInspectedCar] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+
+  console.log(inspectedCar)
 
   useEffect(() => {
     inspectedCarsData();
@@ -29,7 +33,8 @@ const Home = ({ navigation }) => {
     alert("Logout Succesfully");
   };
 
-  const inspectedCarsData = () => {
+  const inspectedCarsData = async () => {
+    setRefreshing(true); // Start refreshing
     let config = {
       method: "get",
       maxBodyLength: Infinity,
@@ -37,14 +42,14 @@ const Home = ({ navigation }) => {
       headers: {},
     };
 
-    axios
-      .request(config)
-      .then((response) => {
-        setInspectedCar(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const response = await axios.request(config);
+      setInspectedCar(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setRefreshing(false); // Stop refreshing
+    }
   };
 
   return (
@@ -138,8 +143,9 @@ const Home = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 190 }}
           data={inspectedCar}
+          extraData={inspectedCar}
           initialNumToRender={0}
-          keyExtractor={inspectedCar.id}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <InspectionCard
               carId={item?.id}
@@ -152,6 +158,8 @@ const Home = ({ navigation }) => {
               onPress={() => navigation.navigate("SingleCar", { id: item?.id })}
             />
           )}
+          refreshing={refreshing}
+          onRefresh={inspectedCarsData}
         />
       </View>
     </AppScreen>

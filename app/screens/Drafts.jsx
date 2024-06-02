@@ -14,36 +14,41 @@ const Drafts = ({ navigation }) => {
   const [loading, setLoading] = useState(true); // Loading state
 
   // Function to fetch inspected cars data
-  const fetchInspectedCars = useCallback(async () => {
-    setRefreshing(true); // Start refreshing
-    const config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `auth/get_carinfosdraft.php?duserId=${userData.user.duserid}`, // Ensure the correct URL is used
-      headers: {},
-    };
-    try {
-      const response = await axios.request(config);
-      console.log(response.data);
-      setInspectedCar(response.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setRefreshing(false); // Stop refreshing
-      setLoading(false); // Set loading to false after fetching data
-    }
-  }, [userData]);
+  const fetchInspectedCars = useCallback(
+    async (hardRefresh = false) => {
+      if (hardRefresh) {
+        setInspectedCar([]); // Clear the cache for a hard refresh
+      }
+      setRefreshing(true); // Start refreshing
+      const config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `auth/get_carinfosdraft.php?duserId=${userData.user.duserid}`, // Ensure the correct URL is used
+        headers: {},
+      };
+      try {
+        const response = await axios.request(config);
+        console.log(response.data);
+        setInspectedCar(response.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setRefreshing(false); // Stop refreshing
+        setLoading(false); // Set loading to false after fetching data
+      }
+    },
+    [userData]
+  );
 
   // Using useFocusEffect to fetch data whenever the screen is focused
   useFocusEffect(
     useCallback(() => {
-      fetchInspectedCars();
+      fetchInspectedCars(true); // Hard refresh when screen is focused
     }, [fetchInspectedCars])
   );
 
   // Load data from state initially and clear cache
   useEffect(() => {
-    setInspectedCar([]); // Clear the cache
     setLoading(true); // Set loading to true
     fetchInspectedCars(); // Fetch fresh data
   }, []);
@@ -68,6 +73,7 @@ const Drafts = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           style={{ marginTop: 20, marginBottom: 30 }}
+          extraData={inspectedCar}
           data={inspectedCar}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
@@ -84,7 +90,7 @@ const Drafts = ({ navigation }) => {
             />
           )}
           refreshing={refreshing}
-          onRefresh={fetchInspectedCars}
+          onRefresh={() => fetchInspectedCars(true)} // Hard refresh on pull-to-refresh
         />
       </View>
     </AppScreen>
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
   },
   headingAndButton: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "center", // Centered
     alignItems: "center",
     paddingHorizontal: 20,
   },
