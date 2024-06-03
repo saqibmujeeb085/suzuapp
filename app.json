@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Suzuki Vehical Valuation",
-    "slug": "app",
+    "name": "Suzuki Vehicle Valuation",
+    "slug": "suzuki-vehicle-valuation",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./app/assets/icon.png",
@@ -44,8 +44,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "1978a170-ea56-4ae4-b249-d5fa94b5b4cd"
+        "projectId": "15448b51-ee53-4856-8f2d-99a13a6db0f3"
       }
-    }
+    },
+    "owner": "saqibmujeeb"
   }
 }
