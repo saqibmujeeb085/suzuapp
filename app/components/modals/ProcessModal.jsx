@@ -9,7 +9,7 @@ import React from "react";
 import AppText from "../text/Text";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import GradientButton from "../buttons/GradientButton";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 const ProcessModal = ({
   heading,
@@ -26,48 +26,44 @@ const ProcessModal = ({
 }) => {
   return (
     <Modal transparent>
-      <TouchableWithoutFeedback onPress={() => setShow(!show)}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalBox}>
-            <View style={styles.closeButton}>
-              {icon && (
-                <MaterialCommunityIcons
-                  name="close"
-                  size={14}
-                  color={"#1D1D1D"}
-                  onPress={() => setShow(!show)}
-                />
-              )}
-            </View>
-            <View style={styles.modalContent}>
-              <AppText
-                fontSize={headingSize}
+      {/* <TouchableWithoutFeedback onPress={() => setShow(!show)}> */}
+      <View style={styles.modalContainer}>
+        <View style={styles.modalBox}>
+          <View style={styles.closeButton}>
+            {icon && (
+              <MaterialCommunityIcons
+                name="close"
+                size={14}
                 color={"#1D1D1D"}
-                textAlign={"center"}
-              >
-                {heading}
+                onPress={() => setShow(!show)}
+              />
+            )}
+          </View>
+          <View style={styles.modalContent}>
+            <AppText
+              fontSize={headingSize}
+              color={"#1D1D1D"}
+              textAlign={"center"}
+            >
+              {heading}
+            </AppText>
+            <AppText fontSize={10} color={"#1D1D1D"} textAlign={"center"}>
+              {text}
+            </AppText>
+          </View>
+          <View style={styles.modalButtons}>
+            <GradientButton size={10} onPress={pbtnPress}>
+              {pbtn}
+            </GradientButton>
+            <TouchableOpacity onPress={sbtnPress}>
+              <AppText textAlign={"center"} color={sbtnColor} fontSize={12}>
+                {sbtn}
               </AppText>
-              <AppText fontSize={10} color={"#1D1D1D"} textAlign={"center"}>
-                {text}
-              </AppText>
-            </View>
-            <View style={styles.modalButtons}>
-              <GradientButton size={10} onPress={pbtnPress}>
-                {pbtn}
-              </GradientButton>
-              <TouchableOpacity onPress={sbtnPress}>
-                <AppText
-                  textAlign={"center"}
-                  color={sbtnColor}
-                  fontSize={12}
-                >
-                  {sbtn}
-                </AppText>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
+      {/* </TouchableWithoutFeedback> */}
     </Modal>
   );
 };

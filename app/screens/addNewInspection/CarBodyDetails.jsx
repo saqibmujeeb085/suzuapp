@@ -103,7 +103,7 @@ const CarBodyDetails = ({ navigation }) => {
     const config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "/auth/get_fuelType.php",
+      url: "/auth/get_cartrans.php",
       headers: {},
     };
 
@@ -204,69 +204,69 @@ const CarBodyDetails = ({ navigation }) => {
         Car Details
       </InspectionHeader>
       <KeyboardAwareScrollView>
-      <View style={styles.InspectionformContainer}>
-        <Dropdown
-          DropItems="Registration City"
-          Data={registrationCities}
-          save={"value"}
-          selectedItem={RegistrationCitySelected}
-          Search={true}
-        />
+        <View style={styles.InspectionformContainer}>
+          <Dropdown
+            DropItems="Registration City"
+            Data={registrationCities}
+            save={"value"}
+            selectedItem={RegistrationCitySelected}
+            Search={true}
+          />
 
-        <Dropdown
-          DropItems="No Of Owners"
-          Data={ownersOptions}
-          save={"value"}
-          selectedItem={OwnerSelected}
-          Search={true}
-        />
+          <Dropdown
+            DropItems="No Of Owners"
+            Data={ownersOptions}
+            save={"value"}
+            selectedItem={OwnerSelected}
+            Search={true}
+          />
 
-        <AppTextInput
-          placeholder="Registration No"
-          onChangeText={(value) => setRegistrationNo(value)}
-        />
-
-        {/* <AppTextInput placeholder="Fuel Type" /> */}
-        <Dropdown
-          DropItems="Fuel Type"
-          Data={fuelTypes}
-          save={"value"}
-          selectedItem={FuelTypeSelected}
-        />
-        <View style={styles.inlineFormContainer}>
           <AppTextInput
-            placeholder="Chassis No"
-            onChangeText={(value) => setChasisNo(value)}
+            placeholder="Registration No"
+            onChangeText={(value) => setRegistrationNo(value)}
+          />
+
+          {/* <AppTextInput placeholder="Fuel Type" /> */}
+          <Dropdown
+            DropItems="Fuel Type"
+            Data={fuelTypes}
+            save={"value"}
+            selectedItem={FuelTypeSelected}
+          />
+          <View style={styles.inlineFormContainer}>
+            <AppTextInput
+              placeholder="Chassis No"
+              onChangeText={(value) => setChasisNo(value)}
+            />
+            <AppTextInput
+              placeholder="Engine No"
+              onChangeText={(value) => setEngineNo(value)}
+            />
+          </View>
+
+          {/* <AppTextInput placeholder="Transmission Type" /> */}
+          <Dropdown
+            DropItems="Transmission Type"
+            Data={transmissionsTypes}
+            save={"value"}
+            selectedItem={TransmissionsTypeSelected}
           />
           <AppTextInput
-            placeholder="Engine No"
-            onChangeText={(value) => setEngineNo(value)}
+            placeholder="Milage"
+            onChangeText={(value) => setMilage(value)}
           />
-        </View>
+          {/* <AppTextInput placeholder="Engine Capacity" /> */}
+          <Dropdown
+            DropItems="Engine Capacity"
+            Data={engineCapacities}
+            save={"value"}
+            selectedItem={EngineCapacitySelected}
+          />
 
-        {/* <AppTextInput placeholder="Transmission Type" /> */}
-        <Dropdown
-          DropItems="Transmission Type"
-          Data={transmissionsTypes}
-          save={"value"}
-          selectedItem={TransmissionsTypeSelected}
-        />
-        <AppTextInput
-          placeholder="Milage"
-          onChangeText={(value) => setMilage(value)}
-        />
-        {/* <AppTextInput placeholder="Engine Capacity" /> */}
-        <Dropdown
-          DropItems="Engine Capacity"
-          Data={engineCapacities}
-          save={"value"}
-          selectedItem={EngineCapacitySelected}
-        />
-
-        <View style={styles.formButton}>
-          <GradientButton onPress={addCarDetails}>Next</GradientButton>
+          <View style={styles.formButton}>
+            <GradientButton onPress={addCarDetails}>Next</GradientButton>
+          </View>
         </View>
-      </View>
       </KeyboardAwareScrollView>
     </AppScreen>
   );

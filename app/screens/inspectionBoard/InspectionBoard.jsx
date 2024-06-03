@@ -6,7 +6,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AppScreen from "../../components/screen/Screen";
 import AppText from "../../components/text/Text";
 import IconButton from "../../components/buttons/IconButton";
@@ -18,55 +18,42 @@ import axios from "axios";
 const InspectionBoard = ({ navigation, route }) => {
   const { id } = route.params || {};
 
+  console.log(id);
+
   const [categoriesList, setCategoriesList] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "/auth/get_category.php",
-      headers: {},
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("/auth/get_category.php");
+        setCategoriesList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    axios
-      .request(config)
-      .then((response) => {
-        setCategoriesList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    fetchCategories();
   }, []);
 
-  const [show, setShow] = useState(false);
-  const ShowModal = () => {
-    setShow(!show);
-  };
+  const ShowModal = useCallback(() => {
+    setShow((prevShow) => !prevShow);
+  }, []);
 
-  const changeStatus = () => {
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: `/auth/update_carstatus.php?id=${id}`,
-      headers: {},
-    };
+  const changeStatus = useCallback(async () => {
+    try {
+      const response = await axios.get(`/auth/update_carstatus.php?id=${id}`);
+      console.log(JSON.stringify(response.data));
+      alert("Status Changed Successfully");
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error(error);
+    }
+  }, [id, navigation]);
 
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        alert("Status Changed SuccessFully");
-        navigation.navigate("Draft");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const discard = () => {
-    navigation.navigate("Home")
-  }
-
+  const handleSaveForLater = useCallback(() => {
+    navigation.navigate("Draft");
+  }, [navigation]);
 
   return (
     <AppScreen>
@@ -76,11 +63,11 @@ const InspectionBoard = ({ navigation, route }) => {
           setShow={setShow}
           icon
           heading={"Customer ID: 0KD560PLF"}
-          text={"If you cancel inspection, customer will be removed."}
+          text={"If you cancel the inspection, it will be saved as a draft"}
           pbtn={"Continue Inspection"}
           pbtnPress={ShowModal}
           sbtn={"Save for later"}
-          sbtnPress={discard}
+          sbtnPress={handleSaveForLater}
           sbtnColor={"#D20000"}
         />
       )}

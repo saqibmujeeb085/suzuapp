@@ -11,9 +11,9 @@ const DeleteButton = ({ size = 15, children, onPress, disabled }) => {
       activeOpacity={0.8}
     >
       {/* <View > */}
-      <AppText color={colors.fontRed} fontSize={size}>
-        {children}
-      </AppText>
+
+      {children}
+
       {/* </View> */}
     </TouchableOpacity>
   );
@@ -24,7 +24,7 @@ export default DeleteButton;
 const styles = StyleSheet.create({
   Button: {
     shadowColor: "#00000050",
-    backgroundColor: "transparent",
+    backgroundColor: "00000000",
     elevation: 10,
     borderWidth: 0,
     paddingVertical: 18,

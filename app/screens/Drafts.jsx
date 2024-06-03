@@ -66,6 +66,7 @@ const Drafts = ({ navigation }) => {
             Draft Inspections
           </AppText>
         </View>
+
         <FlatList
           contentContainerStyle={{
             paddingBottom: 30,
@@ -92,6 +93,12 @@ const Drafts = ({ navigation }) => {
           refreshing={refreshing}
           onRefresh={() => fetchInspectedCars(true)} // Hard refresh on pull-to-refresh
         />
+
+        {/* <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <AppText>No Draft Car Data Found</AppText>
+          </View> */}
       </View>
     </AppScreen>
   );

@@ -23,6 +23,8 @@ const DraftSingleCar = ({ route, navigation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  console.log(carInfo?.carPic);
+
   useEffect(() => {
     if (!id) {
       setError(new Error("No ID provided"));
@@ -95,9 +97,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Inspection Date:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.inspectionDate}
@@ -106,9 +112,13 @@ const DraftSingleCar = ({ route, navigation }) => {
           <View style={styles.infoContainer}>
             <AppText style={{ fontSize: mainStyles.h3FontSize }}>Car:</AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.car}
@@ -119,9 +129,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Variant:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.varientId}
@@ -132,9 +146,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Model:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.model}
@@ -145,9 +163,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Registration No:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.registrationNo}
@@ -158,9 +180,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Chasis No:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.chasisNo}
@@ -171,9 +197,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Manufacturer:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.mfgId}
@@ -182,9 +212,13 @@ const DraftSingleCar = ({ route, navigation }) => {
           <View style={styles.infoContainer}>
             <AppText style={{ fontSize: mainStyles.h3FontSize }}>CPLC:</AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.cplc}
@@ -195,9 +229,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               No Of Owners:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.NoOfOwners}
@@ -208,9 +246,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Transmission Type:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.transmissionType}
@@ -221,9 +263,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Mileage:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.mileage}
@@ -234,9 +280,13 @@ const DraftSingleCar = ({ route, navigation }) => {
               Registration City:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.registrationCity}
@@ -247,9 +297,14 @@ const DraftSingleCar = ({ route, navigation }) => {
               Fuel Type:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
+              textTransform={"uppercase"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.FuelType}
@@ -260,24 +315,16 @@ const DraftSingleCar = ({ route, navigation }) => {
               Color:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.color}
-            </AppText>
-          </View>
-          <View style={styles.infoContainer}>
-            <AppText style={{ fontSize: mainStyles.h3FontSize }}>Rank:</AppText>
-            <AppText
-              style={{
-                fontSize: mainStyles.h3FontSize,
-                color: colors.fontGrey,
-              }}
-            >
-              {carInfo.rank}
-              {carInfo.status}
             </AppText>
           </View>
         </View>

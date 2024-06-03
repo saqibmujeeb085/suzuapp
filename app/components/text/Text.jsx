@@ -3,6 +3,8 @@ import React from "react";
 import { mainStyles } from "../../constants/style";
 
 function AppText({
+  width,
+  textAlign,
   fontSize,
   fontFamily = mainStyles.appFontRegular,
   numberOfLines,
@@ -16,6 +18,8 @@ function AppText({
       ellipsizeMode={ellipsizeMode}
       style={{
         fontFamily: fontFamily,
+        textAlign: textAlign,
+        maxWidth: width,
         fontSize: fontSize,
         textTransform: "capitalize",
         ...styles,

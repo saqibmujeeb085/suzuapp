@@ -21,19 +21,31 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.saqibmujeeb.app"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }, 
+    },
     "plugins": [
       [
         "expo-font",
         {
-          "fonts": ["./app/assets/fonts/Suzuki-Bold.ttf", "./app/assets/fonts/Suzuki-Regular.ttf"]
+          "fonts": [
+            "./app/assets/fonts/Suzuki-Bold.ttf",
+            "./app/assets/fonts/Suzuki-Regular.ttf"
+          ]
         }
       ],
       "expo-image-picker"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1978a170-ea56-4ae4-b249-d5fa94b5b4cd"
+      }
+    }
   }
 }

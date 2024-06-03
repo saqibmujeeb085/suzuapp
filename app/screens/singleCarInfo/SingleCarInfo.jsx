@@ -20,7 +20,7 @@ const SingleCarInfo = ({ route, navigation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(carInfo);
+  console.log(carInfo?.carPic);
 
   useEffect(() => {
     if (!id) {
@@ -65,20 +65,26 @@ const SingleCarInfo = ({ route, navigation }) => {
       <InspectionHeader onPress={() => navigation.goBack()}>
         Car Details
       </InspectionHeader>
-      <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.ImageContainer}>
         <Image
           source={{ uri: `${process.env.IMAGE_URL}/${carInfo.carPic}` }}
           style={styles.bannerImage}
         />
+      </View>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.infoContainer}>
             <AppText style={{ fontSize: mainStyles.h3FontSize }}>
               Inspection Date:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.inspectionDate}
@@ -87,9 +93,13 @@ const SingleCarInfo = ({ route, navigation }) => {
           <View style={styles.infoContainer}>
             <AppText style={{ fontSize: mainStyles.h3FontSize }}>Car:</AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.car}
@@ -100,9 +110,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Variant:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.varientId}
@@ -113,9 +127,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Model:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.model}
@@ -126,9 +144,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Registration No:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.registrationNo}
@@ -139,9 +161,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Chasis No:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.chasisNo}
@@ -152,9 +178,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Manufacturer:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.mfgId}
@@ -163,9 +193,13 @@ const SingleCarInfo = ({ route, navigation }) => {
           <View style={styles.infoContainer}>
             <AppText style={{ fontSize: mainStyles.h3FontSize }}>CPLC:</AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.cplc}
@@ -176,9 +210,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               No Of Owners:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.NoOfOwners}
@@ -189,9 +227,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Transmission Type:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.transmissionType}
@@ -202,9 +244,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Mileage:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.mileage}
@@ -215,9 +261,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Registration City:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.registrationCity}
@@ -228,9 +278,14 @@ const SingleCarInfo = ({ route, navigation }) => {
               Fuel Type:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
+              textTransform={"uppercase"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.FuelType}
@@ -241,9 +296,13 @@ const SingleCarInfo = ({ route, navigation }) => {
               Color:
             </AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.color}
@@ -252,9 +311,13 @@ const SingleCarInfo = ({ route, navigation }) => {
           <View style={styles.infoContainer}>
             <AppText style={{ fontSize: mainStyles.h3FontSize }}>Rank:</AppText>
             <AppText
+              fontSize={mainStyles.h3FontSize}
+              width={150}
+              textAlign={"right"}
               style={{
                 fontSize: mainStyles.h3FontSize,
                 color: colors.fontGrey,
+                width: 200,
               }}
             >
               {carInfo.rank}
@@ -277,6 +340,10 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 16,
+    paddingTop: 0,
+  },
+  ImageContainer: {
+    paddingHorizontal: 16,
   },
   bannerImage: {
     width: "100%",

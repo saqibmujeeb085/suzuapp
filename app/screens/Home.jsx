@@ -20,8 +20,7 @@ const Home = ({ navigation }) => {
   const [inspectedCar, setInspectedCar] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-
-  console.log(inspectedCar)
+  console.log(userData.token);
 
   useEffect(() => {
     inspectedCarsData();

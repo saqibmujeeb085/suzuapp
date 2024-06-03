@@ -14,6 +14,8 @@ const InspectionCard = ({
   rank,
   onPress,
 }) => {
+  console.log(carImage);
+
   return (
     <View>
       <TouchableOpacity onPress={onPress} style={styles.Container}>
