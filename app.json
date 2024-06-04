@@ -3,7 +3,7 @@
     "name": "Suzuki Vehicle Valuation",
     "slug": "suzuki-vehicle-valuation",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -23,7 +23,9 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "android.permission.RECORD_AUDIO"
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "RECORD_AUDIO"
       ],
       "package": "com.saqibmujeeb.app"
     },
@@ -34,10 +36,10 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./app/assets/fonts/Suzuki-Bold.ttf",
-            "./app/assets/fonts/Suzuki-Regular.ttf"
-          ]
+          "fonts": {
+            "Suzuki-Bold": "./app/assets/fonts/Suzuki-Bold.ttf",
+            "Suzuki-Regular": "./app/assets/fonts/Suzuki-Regular.ttf"
+          }
         }
       ],
       "expo-image-picker"
