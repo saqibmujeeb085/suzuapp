@@ -119,6 +119,7 @@ const CarFiles = ({ navigation }) => {
       data.append("registrationCity", carData.registrationCity);
       data.append("FuelType", carData.FuelType);
       data.append("color", carData.color);
+      data.append("rank", "9");
       data.append("carPic", {
         uri: selectedImage,
         name: selectedImageName,
