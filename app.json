@@ -25,10 +25,6 @@
       "permissions": [
         "android.permission.INTERNET",
         "android.permission.ACCESS_NETWORK_STATE",
-<<<<<<< HEAD
-=======
-        "android.permission.RECORD_AUDIO",
->>>>>>> b4f5b56a1290c8c39b4ce4db92b12aab995b7771
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.saqibmujeeb.app"
@@ -40,18 +36,10 @@
       [
         "expo-font",
         {
-          "fonts": {
-            "Suzuki-Bold": "./app/assets/fonts/Suzuki-Bold.ttf",
-            "Suzuki-Regular": "./app/assets/fonts/Suzuki-Regular.ttf"
-          }
+          "fonts": ["./app/assets/fonts/Suzuki-Bold.ttf", "./app/assets/fonts/Suzuki-Regular.ttf"]
         }
       ],
       "expo-image-picker"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "c07826cd-dfb9-4d9c-b2ec-3c5abd96b644"
-      }
-    }
+    ]
   }
 }
