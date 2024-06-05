@@ -21,7 +21,7 @@ const InspectionCard = ({
       <TouchableOpacity onPress={onPress} style={styles.Container}>
         <View style={styles.inspectionDestailsContainer}>
           <Image
-            source={{ uri: `${process.env.IMAGE_URL}/${carImage}` }}
+            source={{ uri: `${process.env.SUZUKI_APP_IMAGES_URL}/${carImage}` }}
             style={styles.image}
           />
           <View style={styles.contentContainer}>

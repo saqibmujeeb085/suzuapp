@@ -90,7 +90,9 @@ const SingleCarInfo = ({ route, navigation }) => {
       </InspectionHeader>
       <View style={styles.ImageContainer}>
         <Image
-          source={{ uri: `${process.env.IMAGE_URL}/${carInfo?.carPic}` }}
+          source={{
+            uri: `${process.env.SUZUKI_APP_IMAGES_URL}/${carInfo?.carPic}`,
+          }}
           style={styles.bannerImage}
         />
       </View>
