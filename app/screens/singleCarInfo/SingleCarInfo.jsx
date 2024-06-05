@@ -17,6 +17,7 @@ const SingleCarInfo = ({ route, navigation }) => {
   const { id } = route.params || {}; // Add a default empty object to avoid destructuring error
 
   const [carInfo, setCarInfo] = useState(null);
+  const [carRatingInfo, setCarRatingInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,6 +30,30 @@ const SingleCarInfo = ({ route, navigation }) => {
       return;
     }
 
+    fetchCarInfo();
+    fetchCarRatingInfo();
+    setLoading(false);
+  }, [id]);
+
+  const fetchCarInfo = () => {
+    const config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `/auth/get_singlecarratinginfos.php?id=${id}`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
+
+  const fetchCarRatingInfo = () => {
     const config = {
       method: "get",
       maxBodyLength: Infinity,
@@ -40,13 +65,11 @@ const SingleCarInfo = ({ route, navigation }) => {
       .request(config)
       .then((response) => {
         setCarInfo(response.data);
-        setLoading(false);
       })
       .catch((error) => {
         setError(error);
-        setLoading(false);
       });
-  }, [id]);
+  };
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
@@ -67,7 +90,7 @@ const SingleCarInfo = ({ route, navigation }) => {
       </InspectionHeader>
       <View style={styles.ImageContainer}>
         <Image
-          source={{ uri: `${process.env.IMAGE_URL}/${carInfo.carPic}` }}
+          source={{ uri: `${process.env.IMAGE_URL}/${carInfo?.carPic}` }}
           style={styles.bannerImage}
         />
       </View>
@@ -87,7 +110,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.inspectionDate}
+              {carInfo?.inspectionDate}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -102,7 +125,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.car}
+              {carInfo?.car}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -119,7 +142,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.varientId}
+              {carInfo?.varientId}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -136,7 +159,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.model}
+              {carInfo?.model}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -153,7 +176,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.registrationNo}
+              {carInfo?.registrationNo}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -170,7 +193,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.chasisNo}
+              {carInfo?.chasisNo}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -187,7 +210,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.mfgId}
+              {carInfo?.mfgId}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -202,7 +225,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.cplc}
+              {carInfo?.cplc}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -219,7 +242,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.NoOfOwners}
+              {carInfo?.NoOfOwners}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -236,7 +259,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.transmissionType}
+              {carInfo?.transmissionType}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -253,7 +276,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.mileage}
+              {carInfo?.mileage}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -270,7 +293,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.registrationCity}
+              {carInfo?.registrationCity}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -288,7 +311,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.FuelType}
+              {carInfo?.FuelType}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -305,7 +328,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.color}
+              {carInfo?.color}
             </AppText>
           </View>
           <View style={styles.infoContainer}>
@@ -320,7 +343,7 @@ const SingleCarInfo = ({ route, navigation }) => {
                 width: 200,
               }}
             >
-              {carInfo.rank}
+              {carInfo?.rank}
             </AppText>
           </View>
         </View>

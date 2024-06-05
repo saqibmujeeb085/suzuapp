@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Suzuki Vehicle Valuation",
-    "slug": "suzuki-vehicle-valuation",
+    "name": "suzuki valuation",
+    "slug": "suzuki-valuation",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./app/assets/icon.png",
@@ -23,6 +23,8 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.saqibmujeeb.app"
@@ -44,7 +46,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "15448b51-ee53-4856-8f2d-99a13a6db0f3"
+        "projectId": "c07826cd-dfb9-4d9c-b2ec-3c5abd96b644"
       }
     },
     "owner": "saqibmujeeb"
